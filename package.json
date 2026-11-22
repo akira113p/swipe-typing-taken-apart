@@ -1,0 +1,6 @@
+{
+  "name": "swipe-typing-taken-apart",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test" }
+}

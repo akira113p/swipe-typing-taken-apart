@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your finger never types the word</title>
+<meta name="description" content="Swipe a word across a keyboard and watch how your phone actually guesses it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+SC&family=IM+Fell+English&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Your finger never types the word</h1>
+  <div class="rule2"></div>
+  <p class="lead">When you swipe across a phone keyboard, it does not work out which letters you crossed. It compares
+    your line with the ideal line of every word it knows, <span id="word-count">10,000</span> of them here, once for
+    its <i>shape</i> and once for its <i>place</i> on the keys, and lets common words win close calls.<a class="fn"
+    href="#fn1">1</a></p>
+</header>
+
+<main class="demo">
+  <h2><span class="plate">Plate I.</span> Swipe a word</h2>
+  <p class="hint">Slide your finger (or mouse) across the keys. Or try:
+    <button class="chip" data-demo="keyboard">keyboard</button>
+    <button class="chip" data-demo="thanks">thanks</button>
+    <button class="chip" data-demo="music">music</button>
+    <button class="chip" data-demo="tip">tip</button>
+    <button class="chip" data-demo="hello">hello</button>
+  </p>
+
+  <div class="stage">
+    <div class="board">
+      <svg id="keyboard" role="img" aria-label="A keyboard you can swipe on"></svg>
+      <p class="figcap">Black: your swipe. Blue: the ideal line of the word you picked, with its tunnel in yellow
+        and a red line from each point of your swipe to the matching point of the word.</p>
+    </div>
+
+    <section class="result" aria-live="polite">
+      <div id="verdict-word" class="verdict-word">…</div>
+      <p id="verdict-meta" class="verdict-meta">Loading the dictionary…</p>
+      <div id="runners" class="runners"></div>
+      <p id="funnel" class="funnel"></p>
+
+      <h3 class="small-h">Take it apart</h3>
+      <label class="switch"><input type="checkbox" id="use-shape" checked>
+        <span><b>Shape judge</b>: compares the drawing, ignoring its size and where you drew it.</span></label>
+      <label class="switch"><input type="checkbox" id="use-place" checked>
+        <span><b>Place judge</b>: checks where on the keys you drew.</span></label>
+      <label class="switch"><input type="checkbox" id="use-prior" checked>
+        <span><b>Word frequency</b>: lets common words win close calls.</span></label>
+      <p class="figcap">Try <i>tip</i>, then switch word frequency off: <i>tip</i> and <i>top</i> draw the same
+        straight line, so nothing else can tell them apart.</p>
+
+      <details class="under">
+        <summary>Under the hood</summary>
+        <table>
+          <thead><tr><th>Word</th><th>Shape gap</th><th>Place gap</th><th>Per million words</th><th>Vote</th></tr></thead>
+          <tbody id="detail-rows"></tbody>
+        </table>
+        <p class="figcap">Shape gap: the average distance between matching points once both lines are scaled to the
+          same box. Place gap: the same on the real keys, weighted towards the ends, or 0 if your swipe stays in the
+          word's tunnel. Each gap becomes a likelihood with a bell curve, the judges are multiplied, and the result is
+          multiplied by the word's frequency to the power 0.25.<a class="fn" href="#fn2">2</a></p>
+      </details>
+    </section>
+  </div>
+</main>
+
+<footer class="notes">
+  <p class="honest"><b>What is computed and what is drawn by hand.</b> Every line, number and vote is computed in
+    your browser by our own code from your swipe. The keyboard drawing and the colours are decoration. The demo
+    buttons slide along the word's keys with rounded corners; they are not recorded swipes.</p>
+  <ol>
+    <li id="fn1">The method is SHARK<sup>2</sup>: P.O. Kristensson and S. Zhai, “SHARK2: A Large Vocabulary
+      Shorthand Writing System for Pen-based Computers”, UIST 2004. Phones today (Apple's QuickPath, Google's
+      Gboard) add machine learning on top; their exact methods are not public.</li>
+    <li id="fn2">The paper does not publish its tolerances. Ours (shape 0.12, place 0.5 keys, frequency weight
+      0.25) were tuned on simulated swipes. Word frequencies: <i>FrequencyWords</i> by Hermit Dave, from
+      OpenSubtitles 2018, CC BY-SA 4.0.</li>
+  </ol>
+</footer>
+<script type="module" src="ui/app.js"></script>
+</body>
+</html>
