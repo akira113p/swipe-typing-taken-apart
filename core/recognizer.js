@@ -46,7 +46,7 @@ export function buildTemplates(words, centers, settings = DEFAULTS) {
 }
 
 /**
- * Returns { funnel, candidates } where funnel lists how many words were still in the race after
+ * Returns { funnel, candidates } where funnel lists [stage id, count]: how many words were still in the race after
  * each step, and candidates are sorted by their share of the vote.
  */
 export function recognize(points, templates, prior, options = {}) {
@@ -54,13 +54,13 @@ export function recognize(points, templates, prior, options = {}) {
   const u = resample(points, s.samplePoints);
   const uShape = normalizeShape(u, s.shapeSize, s.minShapeSpanKeys);
   const weights = endsWeights(s.samplePoints);
-  const funnel = [["words in the dictionary", templates.length]];
+  const funnel = [["dictionary", templates.length]];
 
   let alive = templates.map((t, index) => ({ index, t }));
   if (s.usePruning) {
     alive = alive.filter(({ t }) => near(t.place[0], u[0], s.pruneRadiusKeys)
       && near(t.place[t.place.length - 1], u[u.length - 1], s.pruneRadiusKeys));
-    funnel.push(["start and end near your swipe", alive.length]);
+    funnel.push(["ends", alive.length]);
   }
 
   if (s.useShape) {
@@ -69,7 +69,7 @@ export function recognize(points, templates, prior, options = {}) {
       c.shapeLikelihood = gaussian(c.shapeGap, s.sigmaShape);
     }
     alive = alive.filter((c) => c.shapeGap <= 2 * s.sigmaShape);
-    funnel.push(["close in shape", alive.length]);
+    funnel.push(["shape", alive.length]);
   }
   if (s.usePlace) {
     for (const c of alive) {
@@ -79,7 +79,7 @@ export function recognize(points, templates, prior, options = {}) {
       c.placeLikelihood = gaussian(c.placeGap, s.sigmaPlaceKeys);
     }
     alive = alive.filter((c) => c.placeGap <= 2 * s.sigmaPlaceKeys);
-    funnel.push(["close in place", alive.length]);
+    funnel.push(["place", alive.length]);
   }
 
   // SHARK2 equations 8-9: each judge's likelihoods become shares, then they are multiplied.
@@ -98,7 +98,7 @@ export function recognize(points, templates, prior, options = {}) {
       shapeGap: c.shapeGap, placeGap: c.placeGap, inTunnel: c.inTunnel, path: c.t.place,
     }))
     .sort((a, b) => b.share - a.share);
-  funnel.push(["in the final vote", candidates.length]);
+  funnel.push(["vote", candidates.length]);
   return { gesture: u, funnel, candidates };
 }
 

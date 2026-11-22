@@ -11,17 +11,15 @@
 </head>
 <body>
 <header class="top">
-  <h1>Your finger never types the word</h1>
+  <button id="lang-toggle" class="lang" type="button">Português</button>
+  <h1 data-i18n="title">Your finger never types the word</h1>
   <div class="rule2"></div>
-  <p class="lead">When you swipe across a phone keyboard, it does not work out which letters you crossed. It compares
-    your line with the ideal line of every word it knows, <span id="word-count">10,000</span> of them here, once for
-    its <i>shape</i> and once for its <i>place</i> on the keys, and lets common words win close calls.<a class="fn"
-    href="#fn1">1</a></p>
+  <p class="lead" data-i18n="lead"></p>
 </header>
 
 <main class="demo">
-  <h2><span class="plate">Plate I.</span> Swipe a word</h2>
-  <p class="hint">Slide your finger (or mouse) across the keys. Or try:
+  <h2><span class="plate" data-i18n="plate">Plate I.</span> <span data-i18n="heading">Swipe a word</span></h2>
+  <p class="hint"><span data-i18n="hint">Slide your finger (or mouse) across the keys. Or try:</span>
     <button class="chip" data-demo="keyboard">keyboard</button>
     <button class="chip" data-demo="thanks">thanks</button>
     <button class="chip" data-demo="music">music</button>
@@ -31,53 +29,40 @@
 
   <div class="stage">
     <div class="board">
-      <svg id="keyboard" role="img" aria-label="A keyboard you can swipe on"></svg>
-      <p class="figcap">Black: your swipe. Blue: the ideal line of the word you picked, with its tunnel in yellow
-        and a red line from each point of your swipe to the matching point of the word.</p>
+      <svg id="keyboard" role="img"></svg>
+      <p class="figcap" data-i18n="boardCaption"></p>
     </div>
 
     <section class="result" aria-live="polite">
       <div id="verdict-word" class="verdict-word">…</div>
-      <p id="verdict-meta" class="verdict-meta">Loading the dictionary…</p>
+      <p id="verdict-meta" class="verdict-meta"></p>
       <div id="runners" class="runners"></div>
       <p id="funnel" class="funnel"></p>
 
-      <h3 class="small-h">Take it apart</h3>
-      <label class="switch"><input type="checkbox" id="use-shape" checked>
-        <span><b>Shape judge</b>: compares the drawing, ignoring its size and where you drew it.</span></label>
-      <label class="switch"><input type="checkbox" id="use-place" checked>
-        <span><b>Place judge</b>: checks where on the keys you drew.</span></label>
-      <label class="switch"><input type="checkbox" id="use-prior" checked>
-        <span><b>Word frequency</b>: lets common words win close calls.</span></label>
-      <p class="figcap">Try <i>tip</i>, then switch word frequency off: <i>tip</i> and <i>top</i> draw the same
-        straight line, so nothing else can tell them apart.</p>
+      <h3 class="small-h" data-i18n="takeApart"></h3>
+      <label class="switch"><input type="checkbox" id="use-shape" checked><span data-i18n="shapeSwitch"></span></label>
+      <label class="switch"><input type="checkbox" id="use-place" checked><span data-i18n="placeSwitch"></span></label>
+      <label class="switch"><input type="checkbox" id="use-prior" checked><span data-i18n="priorSwitch"></span></label>
+      <p class="figcap" data-i18n="tipHint"></p>
 
       <details class="under">
-        <summary>Under the hood</summary>
+        <summary data-i18n="underHood"></summary>
         <table>
-          <thead><tr><th>Word</th><th>Shape gap</th><th>Place gap</th><th>Per million words</th><th>Vote</th></tr></thead>
+          <thead><tr><th data-i18n="thWord"></th><th data-i18n="thShape"></th><th data-i18n="thPlace"></th>
+            <th data-i18n="thFrequency"></th><th data-i18n="thVote"></th></tr></thead>
           <tbody id="detail-rows"></tbody>
         </table>
-        <p class="figcap">Shape gap: the average distance between matching points once both lines are scaled to the
-          same box. Place gap: the same on the real keys, weighted towards the ends, or 0 if your swipe stays in the
-          word's tunnel. Each gap becomes a likelihood with a bell curve, the judges are multiplied, and the result is
-          multiplied by the word's frequency to the power 0.25.<a class="fn" href="#fn2">2</a></p>
+        <p class="figcap" data-i18n="underCaption"></p>
       </details>
     </section>
   </div>
 </main>
 
 <footer class="notes">
-  <p class="honest"><b>What is computed and what is drawn by hand.</b> Every line, number and vote is computed in
-    your browser by our own code from your swipe. The keyboard drawing and the colours are decoration. The demo
-    buttons slide along the word's keys with rounded corners; they are not recorded swipes.</p>
+  <p class="honest" data-i18n="honest"></p>
   <ol>
-    <li id="fn1">The method is SHARK<sup>2</sup>: P.O. Kristensson and S. Zhai, “SHARK2: A Large Vocabulary
-      Shorthand Writing System for Pen-based Computers”, UIST 2004. Phones today (Apple's QuickPath, Google's
-      Gboard) add machine learning on top; their exact methods are not public.</li>
-    <li id="fn2">The paper does not publish its tolerances. Ours (shape 0.12, place 0.5 keys, frequency weight
-      0.25) were tuned on simulated swipes. Word frequencies: <i>FrequencyWords</i> by Hermit Dave, from
-      OpenSubtitles 2018, CC BY-SA 4.0.</li>
+    <li id="fn1" data-i18n="fn1"></li>
+    <li id="fn2" data-i18n="fn2"></li>
   </ol>
 </footer>
 <script type="module" src="ui/app.js"></script>

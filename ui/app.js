@@ -5,6 +5,7 @@ import { keyCenters } from "../core/keyboard.js";
 import { parseWordList } from "../core/lexicon.js";
 import { DEFAULTS, buildTemplates, recognize } from "../core/recognizer.js";
 import { createKeyboardView } from "../viz/keyboard.js";
+import { TEXT, translate } from "./i18n.js";
 
 const DEMO_DURATION_MS = 650;
 const DEMO_STEP_KEYS = 0.08;     // the demo swipe reports a point every 0.08 key widths, like a finger
@@ -22,6 +23,41 @@ let stroke = [];
 let drawing = false;
 let result = null;
 let inspected = null;
+let lang = startingLanguage();
+
+// ---------- language ----------
+
+const t = (key, params) => translate(lang, key, params);
+
+/** ?lang=pt in the address wins, then the visitor's last choice, then English. */
+function startingLanguage() {
+  const asked = new URLSearchParams(location.search).get("lang");
+  if (asked in TEXT) return asked;
+  try {
+    const saved = localStorage.getItem("lang");
+    if (saved in TEXT) return saved;
+  } catch { /* storage can be blocked; English is fine */ }
+  return "en";
+}
+
+function applyLanguage() {
+  document.documentElement.lang = lang;
+  document.title = t("title");
+  const words = number(lexicon ? lexicon.words.length : 10000, 0);
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    node.innerHTML = t(node.dataset.i18n, { words });
+  });
+  svg.setAttribute("aria-label", t("keyboardLabel"));
+  $("lang-toggle").textContent = t("langButton");
+  if (result) render();
+  else if (!lexicon) $("verdict-meta").textContent = t("loading");
+}
+
+$("lang-toggle").addEventListener("click", () => {
+  lang = lang === "en" ? "pt" : "en";
+  try { localStorage.setItem("lang", lang); } catch { /* not remembered, still switched */ }
+  applyLanguage();
+});
 
 // ---------- the finger (touch, pen or mouse: Pointer Events cover all three) ----------
 
@@ -93,7 +129,9 @@ for (const input of Object.values(switches)) input.addEventListener("change", vo
 
 // ---------- showing it ----------
 
-const percent = (x) => `${(100 * x).toFixed(x < 0.1 ? 1 : 0)}%`;
+const locale = () => (lang === "pt" ? "pt-BR" : "en");
+const number = (x, digits) => x.toLocaleString(locale(), { minimumFractionDigits: digits, maximumFractionDigits: digits });
+const percent = (x) => `${number(100 * x, x < 0.1 ? 1 : 0)}%`;
 
 function render() {
   const { candidates, funnel, gesture } = result;
@@ -107,16 +145,18 @@ function render() {
   });
   renderVerdict(candidates);
   renderRunners(candidates);
-  $("funnel").textContent = funnel.map(([name, count]) => `${count.toLocaleString("en")} ${name}`).join("  →  ");
+  $("funnel").textContent = funnel.map(([stage, count]) => `${number(count, 0)} ${t(`stage_${stage}`)}`).join("  →  ");
   renderTable(candidates);
 }
 
 function renderVerdict(candidates) {
   const best = candidates[0];
   $("verdict-word").textContent = best ? best.word : "?";
+  const second = candidates[1];
   $("verdict-meta").textContent = best
-    ? `${percent(best.share)} of the vote${candidates[1] ? `, ahead of ${candidates[1].word} (${percent(candidates[1].share)})` : ""}.`
-    : "No word is close enough to that line. Try again, or switch a judge off.";
+    ? t("ofTheVote", { share: percent(best.share) })
+      + (second ? t("aheadOf", { word: second.word, share: percent(second.share) }) : "") + "."
+    : t("noWord");
 }
 
 function renderRunners(candidates) {
@@ -141,9 +181,9 @@ function renderTable(candidates) {
     const row = document.createElement("tr");
     const cells = [
       c.word,
-      c.shapeGap === undefined ? "off" : c.shapeGap.toFixed(3),
-      c.placeGap === undefined ? "off" : c.inTunnel ? "0 (in the tunnel)" : `${c.placeGap.toFixed(2)} keys`,
-      Math.round(c.prior * 1e6).toLocaleString("en"),
+      c.shapeGap === undefined ? t("off") : number(c.shapeGap, 3),
+      c.placeGap === undefined ? t("off") : c.inTunnel ? t("inTunnel") : t("keys", { n: number(c.placeGap, 2) }),
+      number(Math.round(c.prior * 1e6), 0),
       percent(c.share),
     ];
     for (const text of cells) {
@@ -161,10 +201,12 @@ async function load() {
   const text = await (await fetch("data/words.txt")).text();
   lexicon = parseWordList(text);
   templates = buildTemplates(lexicon.words, centers);
-  $("word-count").textContent = lexicon.words.length.toLocaleString("en");
+  applyLanguage();                 // fills in the real word count
+  $("verdict-meta").textContent = "";
   document.body.classList.add("ready");
 }
 
+applyLanguage();
 load().catch(() => {
-  $("verdict-meta").textContent = "The word list could not be loaded. Open the page through a web server.";
+  $("verdict-meta").textContent = t("loadFailed");
 });
