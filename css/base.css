@@ -1,4 +1,4 @@
-/* Page-wide: reset, type, header, illustration strip, footer. Values come from tokens.css. */
+/* Page-wide: reset, type, header, opening figure, footer. Values come from tokens.css. */
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--color-bg); color: var(--color-fg); font: 400 17px/1.7 var(--serif);
   font-feature-settings: "kern" 1, "liga" 0, "tnum" 1; text-rendering: optimizeLegibility; -webkit-tap-highlight-color: transparent; }
@@ -17,11 +17,33 @@ h1 { font-size: clamp(34px, 6.5vw, 60px); line-height: 1.05; letter-spacing: -.0
 .rule2 { margin: 18px 0 16px; border-top: 2px solid var(--color-fg); }
 .lead { font-size: clamp(18px, 2.4vw, 21px); line-height: 1.55; margin: 0; max-width: 820px; }
 
-/* Five hand-drawn ink panels. Decoration only: nothing on the page is computed from them. */
-.strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(6px, 1.5vw, 16px); margin: 24px 0 0; padding: 0; list-style: none; }
-.panel { aspect-ratio: 1; overflow: hidden; }
-/* The source files have a white margin around the drawn frame: zoom in on the frame and let multiply turn the white into paper. */
-.panel img { width: 150%; max-width: none; margin: -23.5% 0 0 -23.5%; mix-blend-mode: multiply; }
+/* The opening figure (ui/opening.js): a swipe of "hello", drawn in key widths. Yellow: the word's keys.
+   Grey: keys the finger only passes over. The same colours mark the keys in the text above it. */
+.opening { width: 100%; max-width: 680px; height: auto; margin: 26px 0 0; }
+/* On a wide screen the figure sits beside the opening text instead of under it. */
+@media (min-width: 1000px) {
+  .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 48px; }
+  .top h1, .top .rule2 { grid-column: 1 / -1; }
+  .opening { margin: 6px 0 0; }
+}
+.op-key { fill: var(--color-white); stroke: var(--color-fg); stroke-width: .04; }
+.op-word { fill: color-mix(in srgb, var(--category-yellow) 75%, var(--color-white)); }
+.op-crossed { fill: var(--color-gray-300); }
+.op-letter { font: 700 .45px var(--sans); fill: var(--color-fg); text-anchor: middle; paint-order: stroke; stroke: var(--color-white); stroke-width: .06; }
+.op-label { font: .42px var(--sans); fill: var(--color-gray-600); }
+.op-written { font: italic 700 .8px var(--serif); fill: var(--color-fg); }
+.op-start { fill: var(--color-fg); }
+/* The line draws itself, then the touched keys appear one by one, then the result. --1s is 1 ms with reduced motion. */
+.op-swipe { fill: none; stroke: var(--color-fg); stroke-width: .06; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; animation: op-draw calc(2.2 * var(--1s)) ease-in-out calc(.4 * var(--1s)) forwards; }
+.op-cap, .op-result { opacity: 0; animation: op-show calc(.25 * var(--1s)) calc((2.7 + var(--i) * .12) * var(--1s)) forwards; }
+@keyframes op-draw { to { stroke-dashoffset: 0; } }
+@keyframes op-show { to { opacity: 1; } }
+/* Keys named in the text. */
+kbd { font: 700 .78em/1 var(--sans); display: inline-block; min-width: 1.25em; padding: .18em .25em; text-align: center;
+  border: 1px solid var(--color-fg); border-radius: 3px; background: var(--color-white); }
+kbd.word { background: color-mix(in srgb, var(--category-yellow) 75%, var(--color-white)); }
+kbd.crossed { background: var(--color-gray-300); }
 
 .notes { max-width: var(--page-width); margin: 56px auto 0; padding: 0 16px 60px; font-size: 16px; }
 .honest { background: var(--color-black); color: var(--color-bg); padding: 14px 20px; max-width: 820px; }

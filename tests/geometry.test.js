@@ -2,7 +2,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { keysNear } from "../core/keyboard.js";
+import { keysCrossed } from "../core/crossed.js";
+import { keyAt, keysNear } from "../core/keyboard.js";
 import { letterHits } from "../core/letters.js";
 import { resample, wordKeys } from "../core/path.js";
 import { normalizeShape } from "../core/shape.js";
@@ -55,4 +56,14 @@ test("the keys the pruning figure colours are the recognizer's rule: every word 
   const end = keysNear(gesture[gesture.length - 1], centers, DEFAULTS.pruneRadiusKeys);
   assert.ok(candidates.length > 0);
   for (const { word } of candidates) assert.ok(start.includes(word[0]) && end.includes(word.at(-1)), word);
+});
+
+test("a straight hello crosses h g f t r e r t y h j k l o (the opening text and figure)", () => {
+  assert.equal(keysCrossed(perfect("hello")).join(" "), "h g f t r e r t y h j k l o");
+});
+
+test("keyAt finds the key under a point, and nothing beside a short row", () => {
+  assert.equal(keyAt(centers.q), "q");
+  assert.equal(keyAt(centers.m), "m");
+  assert.equal(keyAt([0.2, 2.25]), null); // left of "a": the middle row starts half a key in
 });

@@ -31,3 +31,9 @@ export function keyCenters() {
 export function keysNear(point, centers, radius) {
   return Object.keys(centers).filter((letter) => distance(centers[letter], point) <= radius);
 }
+
+/** The letter whose key covers the point, or null (off the keyboard, or beside a short row). */
+export function keyAt([x, y]) {
+  const row = Math.floor(y / KEY_HEIGHT_KEYS);
+  return ROWS[row]?.[Math.floor(x - ROW_OFFSETS_KEYS[row])] ?? null;
+}
