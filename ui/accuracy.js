@@ -6,6 +6,7 @@ import { DEFAULTS } from "../core/settings.js";
 import { buildTemplates } from "../core/templates.js";
 import { drawAccuracy } from "../viz/accuracy-chart.js";
 import { addWord, clearWall } from "../viz/word-wall.js";
+import { LEVEL_NAMES } from "./text/accuracy.js";
 export const WORDS_PER_POINT = 100;
 const WORDS_PER_FRAME = 4; // swipes tested between two repaints: fast, but still visible
 const $ = (id) => document.getElementById(id);
@@ -15,7 +16,7 @@ const series = [
   { name: "your settings", className: "acc-yours", rates: [] },
   { name: "default settings", className: "acc-default", rates: [] },
 ];
-const draw = () => drawAccuracy($("accuracy-chart"), LEVELS, series);
+const draw = () => drawAccuracy($("accuracy-chart"), LEVELS, LEVEL_NAMES, series);
 let defaultResults = null; // the defaults never change, so their run is done once and kept
 const testAt = ({ lexicon, centers }, templates, options, i) =>
   testAtLevel(i, { words: lexicon.words, prior: lexicon.prior, templates, centers, options, count: WORDS_PER_POINT });
@@ -23,8 +24,7 @@ const testAt = ({ lexicon, centers }, templates, options, i) =>
 /** getContext() returns { lexicon, centers, settings, templates } as they are right now. */
 export function setUpAccuracy(getContext) {
   draw();
-  // Moving any control here or next to the keyboard makes an old result out of date.
-  const outdated = () => { if (series[0].rates.length) status("Settings changed: run the test again."); };
+  const outdated = () => { if (series[0].rates.length) status("Settings changed: run the test again."); }; // by any control
   document.addEventListener("input", (event) => { if (event.target.dataset.key) outdated(); });
   document.addEventListener("click", (event) => { if (event.target.closest("[data-reset]")) outdated(); });
   $("run-accuracy").addEventListener("click", () => run(getContext()));
@@ -41,14 +41,14 @@ async function run(context) {
   }
   [series[0].rates, series[1].rates] = [[], defaultResults.map(shareRight)];
   draw(); // the defaults line first, then yours grows level by level
-  clearWall($("word-wall"), LEVELS);
+  clearWall($("word-wall"), LEVEL_NAMES);
   for (let i = 0; i < LEVELS.length; i++) {
     const results = [];
     for (const result of swipeTest(testAt(context, context.templates, context.settings, i))) {
       addWord($("word-wall"), i, { ...result, defaultGuess: defaultResults[i][results.length].guess });
       results.push(result);
       if (results.length % WORDS_PER_FRAME === 0) {
-        status(`Finger ${LEVELS[i]} keys off: “${result.word}” read as “${result.guess ?? "nothing"}”`);
+        status(`${LEVEL_NAMES[i]} finger: “${result.word}” read as “${result.guess ?? "nothing"}”`);
         await nextFrame();
       }
     }

@@ -30,6 +30,10 @@
 .bells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 16px; }
 .bell-panel { width: 100%; height: auto; display: block; }
 @media (max-width: 600px) { .bells { grid-template-columns: minmax(0, 320px); } }
+/* Under the accuracy chart: the taps each level of sloppiness makes on one key. */
+.tap-key { fill: var(--color-white); stroke: var(--color-fg); stroke-width: 1.2; }
+.tap { fill: var(--color-fg); }
+.tap-out { fill: var(--category-red); }
 .chart:empty { display: none; } /* the vote charts stay hidden until the first swipe */
 
 .explain { margin: 56px 0 0; }

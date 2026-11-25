@@ -23,12 +23,23 @@ export function randomSource(seed) {
   return { uniform, normal };
 }
 
+/** Where the finger really lands when it aims at [x, y]: a random miss of typical size `miss` on each axis. */
+export function aimAt([x, y], miss, random) {
+  return [x + random.normal() * miss, y + random.normal() * miss];
+}
+
+/** `count` taps aimed at the point [0, 0], to show on the accuracy chart how far a finger lands. */
+export function sampleTaps(miss, count, seed) {
+  const random = randomSource(seed);
+  return Array.from({ length: count }, () => aimAt([0, 0], miss, random));
+}
+
 /**
  * miss: how far the finger lands from each key centre. bow: how much each hop between
  * two keys curves sideways, as a share of its length. wobble: shake on every point.
  */
 export function simulateSwipe(word, centers, finger, random) {
-  const aims = wordKeys(word, centers).map(([x, y]) => [x + random.normal() * finger.miss, y + random.normal() * finger.miss]);
+  const aims = wordKeys(word, centers).map((key) => aimAt(key, finger.miss, random));
   const path = [aims[0]];
   for (let i = 1; i < aims.length; i++) path.push(bowedMiddle(aims[i - 1], aims[i], random.normal() * finger.bow), aims[i]);
   if (path.length === 1) path.push([path[0][0] + 0.05, path[0][1]]); // a 1-letter word is a tiny slide

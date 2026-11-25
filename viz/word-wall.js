@@ -8,10 +8,10 @@ const STATES = [
   ["neither", "wrong with both"],
 ];
 
-/** An empty row per sloppiness level, and the colour legend. */
-export function clearWall(wall, levels) {
+/** An empty row per sloppiness level (named like the chart's x axis), and the colour legend. */
+export function clearWall(wall, levelNames) {
   const legend = STATES.map(([state, text]) => `<span><i class="cell ${state}"></i>${text}</span>`).join("");
-  const rows = levels.map((level) => `<div class="wall-row"><span class="wall-level">${level} keys off</span>
+  const rows = levelNames.map((name) => `<div class="wall-row"><span class="wall-level">${name} finger</span>
     <div class="wall-cells"></div></div>`).join("");
   wall.innerHTML = `<p class="wall-legend">${legend}</p>${rows}`;
 }
