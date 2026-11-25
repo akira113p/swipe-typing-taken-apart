@@ -12,6 +12,12 @@ export const ROW_OFFSETS_KEYS = [0, 0.5, 1.5];
 
 // Phone keys are taller than wide: 9.42 mm / 6.22 mm = 1.51 (Smith, Bi & Zhai, CHI 2015).
 export const KEY_HEIGHT_KEYS = 1.5;
+export const KEY_WIDTH_MM = 6.22; // the same paper: one key width on a phone, so key widths can be shown in mm
+
+/** A distance in key widths, in millimetres on a phone. */
+export function toMillimetres(keys) {
+  return keys * KEY_WIDTH_MM;
+}
 
 export const KEYBOARD_WIDTH_KEYS = Math.max(...ROWS.map((row, i) => ROW_OFFSETS_KEYS[i] + row.length));
 export const KEYBOARD_HEIGHT_KEYS = ROWS.length * KEY_HEIGHT_KEYS;

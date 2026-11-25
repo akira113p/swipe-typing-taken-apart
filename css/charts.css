@@ -34,6 +34,11 @@
 .tap-key { fill: var(--color-white); stroke: var(--color-fg); stroke-width: 1.2; }
 .tap { fill: var(--color-fg); }
 .tap-out { fill: var(--category-red); }
+/* Point at a level (or slide a finger along them) to pick it: ui/sloppy.js shows its example swipe. */
+#accuracy-chart { touch-action: pan-y; }
+.acc-band { fill: transparent; cursor: pointer; }
+.acc-level.picked .acc-band { fill: var(--color-surface); }
+.explain .chart.sloppy-example { max-width: 420px; margin: 4px auto 0; background: var(--color-surface); border-radius: var(--border-radius); }
 .chart:empty { display: none; } /* the vote charts stay hidden until the first swipe */
 
 .explain { margin: 56px 0 0; }
