@@ -37,9 +37,11 @@
       <div id="runners" class="runners"></div><div id="funnel" class="funnel"></div>
       <details class="under"><summary>Tune every number</summary>
         <div data-controls="sliders"></div><button data-reset class="button" type="button">Back to the defaults</button></details>
-      <details class="under"><summary>Under the hood</summary><table><thead><tr><th>Word</th><th>Shape gap</th>
-        <th>Place gap</th><th>Letters gap</th><th>Per million</th><th>Points</th><th>Vote</th></tr></thead>
-        <tbody id="detail-rows"></tbody></table></details>
+      <details class="under"><summary>Under the hood</summary><p class="figcap" data-text="tableNote"></p>
+        <div class="table-scroll"><table><thead><tr><th>Word</th><th>Shape<small>differs by</small></th>
+        <th>Position<small>off by</small></th><th>Letters<small>missed by</small></th><th>How common<small>in English</small></th>
+        <th>Penalty<small>fewer wins</small></th><th>Vote<small>share</small></th></tr></thead>
+        <tbody id="detail-rows"></tbody></table></div></details>
     </section>
   </div>
   <section class="explain"><h2 class="sub">How it decides</h2>

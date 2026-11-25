@@ -1,6 +1,7 @@
 // The funnel strip and the "Under the hood" table.
 
-import { number, percent } from "./format.js";
+import { toMillimetres } from "../core/keyboard.js";
+import { number, oneIn, percent } from "./format.js";
 
 const TABLE_ROWS = 8;
 const STAGES = { dictionary: "words in the dictionary", ends: "start and end near your swipe" };
@@ -21,17 +22,20 @@ export function renderFunnel(funnel, candidates) {
   $("funnel").replaceChildren(...boxes);
 }
 
-/** One row per candidate: the three gaps, the word's frequency, its penalty points and its vote. */
+const millimetres = (keys) => `${number(toMillimetres(keys), 1)} mm`;
+
+/** One row per candidate: the three gaps, the word's frequency, its penalty points and its vote.
+ * The gaps are shown in everyday units: the shape as a share of the drawing's size, distances in mm on a phone. */
 export function renderTable(candidates, s) {
   const body = $("detail-rows");
   body.replaceChildren();
   for (const c of candidates.slice(0, TABLE_ROWS)) {
     const cells = [
       c.word,
-      s.useShape ? number(c.shapeGap, 3) : "off",
-      s.usePlace ? `${number(c.placeGap, 2)} keys` : "off",
-      s.useLetters ? `${number(c.letterGap, 2)} keys` : "off",
-      number(c.prior * 1e6, 0),
+      s.useShape ? percent(c.shapeGap / s.shapeSize) : "off",
+      s.usePlace ? millimetres(c.placeGap) : "off",
+      s.useLetters ? millimetres(c.letterGap) : "off",
+      oneIn(c.prior),
       number(c.points, 2),
       percent(c.share),
     ];

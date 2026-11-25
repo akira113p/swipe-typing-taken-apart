@@ -33,3 +33,16 @@ h2 { display: inline-block; background: var(--color-fg); color: var(--color-bg);
 .under th { font-size: 11px; text-transform: uppercase; text-align: left; border-bottom: 1px solid var(--color-fg); padding: 4px; }
 .under td { border-bottom: 1px solid var(--color-border); padding: 4px; font-variant-numeric: tabular-nums; }
 .under td:first-child { font: italic 16px var(--serif); }
+.under th { vertical-align: bottom; }
+.under th small { display: block; font-weight: 400; text-transform: none; color: var(--color-gray-600); }
+.under tbody tr:first-child { background: var(--color-surface); font-weight: 700; } /* the winner, as in the vote chart */
+.under td { white-space: nowrap; }
+.table-scroll { overflow-x: auto; } /* seven columns do not fit a narrow phone: the table scrolls, the page does not */
+.result { min-width: 0; } /* without it the column grows to the table's width instead of letting it scroll */
+/* On a phone: smaller type and padding, so all seven columns, the vote included, fit without scrolling. */
+@media (max-width: 480px) {
+  .under table { font-size: 12px; }
+  .under th, .under td { padding: 4px 2px; }
+  .under th { font-size: 9.5px; }
+  .under td:first-child { font-size: 14px; }
+}

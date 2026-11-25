@@ -9,6 +9,11 @@ export function percent(share) {
   return `${number(100 * share, share < 0.1 ? 1 : 0)}%`;
 }
 
+/** A word that is 0.000617 of all words → "1 in 1,600": easier to picture than a rate. */
+export function oneIn(share) {
+  return `1 in ${(1 / share).toLocaleString("en", { maximumSignificantDigits: 2 })}`;
+}
+
 /** "{words} words" with { words: "10,000" } → "10,000 words". */
 export function fillPlaceholders(text, values) {
   return text.replace(/\{(\w+)\}/g, (_, name) => values[name] ?? "");

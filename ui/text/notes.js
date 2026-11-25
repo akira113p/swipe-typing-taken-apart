@@ -1,6 +1,8 @@
 // The footer: honesty notes, what we changed from the paper, and the footnotes.
 
 export const NOTES = {
+  tableNote: `How far each leading word is from your swipe: smaller is better. Millimetres are measured on a phone
+    keyboard, where a key is about {keyMm} mm wide.`,
   honest: `<b>What is computed and what is drawn by hand.</b> Every line, dot, number, chart and vote on this
     page is computed in your browser by our own code, from your swipe and the settings above. The keyboard
     drawing and the colours are decoration. The example buttons slide along the word's keys with rounded corners;
