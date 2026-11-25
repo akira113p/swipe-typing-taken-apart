@@ -6,7 +6,7 @@ import { el, label, resetChart, toPoints } from "./svg.js";
 
 const PANEL_WIDTH = 200;
 const HEIGHT = 165;
-const PLOT = { left: 36, right: 190, top: 42, bottom: 130 };
+const PLOT = { left: 42, right: 190, top: 42, bottom: 130 }; // left: room for "100%"
 const CURVE_STEPS = 60;
 
 /** judges: [{ title, sigma, unit, on, words: [{ word, gap, focus }] }] */
@@ -34,7 +34,10 @@ function drawPanel(g, { title, sigma, unit, on, words }) {
   label(g, x(sigma) + 3, PLOT.top + 10, `σ = ${number(sigma, 2)}`, "chart-small");
   label(g, PLOT.right, HEIGHT - 10, `gap (${unit}) →`, "chart-small", "end");
   label(g, PLOT.left, HEIGHT - 10, "0", "chart-small", "middle");
-  words.forEach(({ word, gap, focus }, k) => {
+  // SVG paints in order, so the inspected word goes last: a grey dot at almost the same gap would hide it.
+  const order = [...words.keys()].sort((a, b) => words[a].focus - words[b].focus);
+  order.forEach((k) => {
+    const { word, gap, focus } = words[k];
     const [cx, cy] = [x(gap), y(bellHeight(gap, sigma))];
     el("circle", { cx, cy, r: focus ? 5 : 3.5, class: focus ? "bell-dot bell-focus" : "bell-dot" }, g);
     // Labels go below dots high on the curve and above dots low on it, stacked so they never overlap.
