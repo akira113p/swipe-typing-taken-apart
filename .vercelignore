@@ -1,0 +1,6 @@
+# Only the page goes online: not the tests, the local server, the README pictures or any secrets.
+.env*
+tests/
+serve.py
+screenshots/
+package.json
