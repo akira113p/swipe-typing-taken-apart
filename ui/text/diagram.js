@@ -10,7 +10,7 @@ export const DIAGRAM = {
   place: ["Place judge", "on the right keys?", "on/off · σ"],
   letters: ["Letters judge", "every letter, in order?", "on/off · σ"],
   frequency: ["Frequency", "common words get a small head start", "on/off · λ"],
-  settings: ["Settings", "{switches} switches and {sliders} sliders; a dark tag shows which step each one changes"],
+  settings: ["Settings", "Change any step with the switches and sliders by the keyboard. The dark tag on a box lists what you can change there."],
   frequencies: ["Word frequencies", "from movie subtitles"],
   vote: ["The vote", "each judge hands out penalty points; the fewest points win"],
   ranked: ["Ranked words", "the top {shown}, with their share of the vote"],

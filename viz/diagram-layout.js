@@ -7,7 +7,7 @@ export const WIDE = {
     swipe: [226, 14, 365, 62], points: [226, 99, 365, 62], pruning: [226, 184, 365, 62],
     dictionary: [24, 162, 168, 106],
     shape: [120, 296, 175, 72], place: [311, 296, 175, 72], letters: [502, 296, 190, 72],
-    settings: [698, 80, 226, 92], frequency: [698, 200, 226, 82], frequencies: [746, 312, 178, 94],
+    settings: [698, 40, 226, 118], frequency: [698, 200, 226, 82], frequencies: [746, 312, 178, 94],
     vote: [226, 416, 459, 58], ranked: [226, 497, 459, 58], screen: [226, 578, 459, 58],
   },
   edges: [
@@ -25,7 +25,7 @@ export const WIDE = {
 
 // On a phone the four scores are stacked inside one dashed frame, so no order is implied between them.
 export const NARROW = {
-  size: [340, 1060], fonts: [15, 12],
+  size: [340, 1076], fonts: [15, 12],
   frame: [20, 306, 300, 368],
   nodes: {
     swipe: [20, 10, 300, 62], points: [20, 96, 300, 62], pruning: [152, 182, 168, 100],
@@ -33,7 +33,7 @@ export const NARROW = {
     shape: [32, 318, 276, 54], place: [32, 380, 276, 54], letters: [32, 442, 276, 54],
     frequency: [32, 504, 276, 54], frequencies: [60, 580, 220, 84],
     vote: [20, 698, 300, 76], ranked: [20, 802, 300, 62], screen: [20, 888, 300, 62],
-    settings: [20, 974, 300, 76],
+    settings: [20, 974, 300, 92],
   },
   edges: [
     { path: [[170, 72], [170, 96]] }, { path: [[236, 158], [236, 182]] }, { path: [[128, 232], [152, 232]] },
