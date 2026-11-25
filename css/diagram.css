@@ -9,6 +9,9 @@
 .d-frame { fill: none; stroke: var(--color-gray-600); stroke-dasharray: 4 4; }
 .d-edge { fill: none; stroke: var(--tone, var(--color-fg)); stroke-width: 1.8; }
 .d-head { fill: var(--tone, var(--color-fg)); }
+.d-key { stroke-dasharray: 5 4; }
+.d-tag { fill: var(--color-fg); }
+.d-tag-text { font-weight: 700; fill: var(--color-bg); }
 .d-title { font-weight: 700; fill: var(--color-fg); }
 .d-detail { fill: var(--color-gray-600); }
 @media (max-width: 640px) { .explain .diagram { max-width: 420px; } }

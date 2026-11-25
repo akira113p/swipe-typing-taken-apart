@@ -29,6 +29,13 @@ export function arrow(svg, { path, tone }) {
   el("polygon", { points: toPoints(corners), class: "d-head" }, group);
 }
 
+/** A dark label centred on the top edge of a box, its right end at x. */
+export function tag(parent, x, y, text, size, charWidthEm) {
+  const [width, height] = [text.length * size * charWidthEm + 10, size + 6];
+  el("rect", { x: x - width, y: y - height / 2, width, height, rx: 2, class: "d-tag" }, parent);
+  write(parent, x - width / 2, y + size * 0.35, text, "d-tag-text", size, "middle");
+}
+
 export function write(parent, x, y, text, className, size, anchor) {
   label(parent, x, y, text, className, anchor).setAttribute("font-size", size);
 }
