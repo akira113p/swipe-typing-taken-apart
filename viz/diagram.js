@@ -10,13 +10,12 @@ const PAD = 12;
 const CAP = 6; // the coloured strip on top of a score's box
 const CHAR_WIDTH_EM = 0.52; // average letter width of our sans, to decide where a line breaks
 
-/** texts: { id: [title, detail] }, with the same ids as layout.nodes, plus again: [label]. */
+/** texts: { id: [title, detail] }, with the same ids as layout.nodes. */
 export function drawDiagram(svg, layout, texts) {
   resetChart(svg, ...layout.size);
   if (layout.frame) box(svg, layout.frame, "d-frame");
   for (const edge of layout.edges) arrow(svg, edge);
   for (const [id, rect] of Object.entries(layout.nodes)) node(svg, id, rect, texts[id], layout.fonts);
-  write(svg, ...layout.againAt, texts.again[0], "d-title", layout.fonts[1], "end");
 }
 
 /** One box or cylinder with its title and detail, centred vertically. */

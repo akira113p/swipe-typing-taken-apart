@@ -4,6 +4,7 @@
 import { DEFAULTS } from "../core/settings.js";
 import { showDiagram } from "./diagram.js";
 import { fillPlaceholders, number } from "./format.js";
+import { SUGGESTION_COUNT } from "./notepad.js";
 import { SHOWN_BARS } from "./results.js";
 import { ACCURACY } from "./text/accuracy.js";
 import { DIAGRAM_NOTES } from "./text/diagram.js";
@@ -15,7 +16,7 @@ const TEXT = { ...LEAD, ...OVERVIEW, ...ACCURACY, ...NOTES, ...DIAGRAM_NOTES };
 
 export function fillText(params) {
   const radius = number(DEFAULTS.pruneRadiusKeys, 1);
-  const values = { n: DEFAULTS.samplePoints, radius, shown: SHOWN_BARS, ...params };
+  const values = { n: DEFAULTS.samplePoints, radius, shown: SHOWN_BARS, suggestions: SUGGESTION_COUNT, ...params };
   document.querySelectorAll("[data-text]").forEach((node) => {
     node.innerHTML = fillPlaceholders(TEXT[node.dataset.text], values);
   });

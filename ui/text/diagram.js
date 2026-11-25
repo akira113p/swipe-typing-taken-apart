@@ -13,7 +13,7 @@ export const DIAGRAM = {
   frequencies: ["Word frequencies", "from movie subtitles"],
   vote: ["The vote", "each judge hands out penalty points; the fewest points win"],
   ranked: ["Ranked words", "the top {shown}, with their share of the vote"],
-  again: ["try another swipe"],
+  screen: ["On the phone", "the winner is typed; the top {suggestions} are offered as suggestions"],
 };
 
 export const DIAGRAM_NOTES = {
