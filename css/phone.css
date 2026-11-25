@@ -28,12 +28,6 @@
 /* The keyboard fills the screen's width below the divider line (y 1136 px). */
 .phone #keyboard { position: absolute; left: 7.3%; width: 85.2%; top: 75.5%; }
 
-/* On a real phone the frame would only shrink the keys: drop it and stack the three parts. */
-@media (max-width: 600px) {
-  .phone { width: 100%; aspect-ratio: auto; display: flex; flex-direction: column; gap: 6px; }
-  .phone-frame { display: none; }
-  .phone .screen-text, .phone .suggestions, .phone #keyboard { position: static; width: 100%; }
-  .screen-text { height: 4.4em; font-size: 20px; border: 2px solid var(--color-fg); border-radius: var(--border-radius); padding: 6px 10px; }
-  .suggestions { height: 44px; border-bottom: 1px solid var(--color-border); }
-  .suggestion { font-size: 18px; }
-}
+/* On a narrow screen the phone stands alone in the column: centre it. The frame stays, since the
+   keyboard takes 85% of its width (keys ~29 px on a 390 px phone, about the same as without the frame). */
+@media (max-width: 860px) { .phone { margin: 0 auto; } }
