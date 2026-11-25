@@ -9,13 +9,17 @@ const HEIGHT = 165;
 const PLOT = { left: 42, right: 190, top: 42, bottom: 130 }; // left: room for "100%"
 const CURVE_STEPS = 60;
 
-/** judges: [{ title, sigma, unit, on, words: [{ word, gap, focus }] }] */
-export function drawBells(svg, judges) {
-  resetChart(svg, PANEL_WIDTH * judges.length, HEIGHT);
-  judges.forEach((judge, i) => {
-    const panel = el("g", { transform: `translate(${i * PANEL_WIDTH},0)`, class: judge.on ? "" : "chart-off" }, svg);
-    drawPanel(panel, judge);
-  });
+/**
+ * One small SVG per judge inside `box`, so the page can put them side by side on a wide screen and one
+ * under the other on a phone (css/charts.css). judges: [{ title, sigma, unit, on, words: [{ word, gap, focus }] }]
+ */
+export function drawBells(box, judges) {
+  box.replaceChildren();
+  for (const judge of judges) {
+    const svg = el("svg", { class: judge.on ? "bell-panel" : "bell-panel chart-off" }, box);
+    resetChart(svg, PANEL_WIDTH, HEIGHT);
+    drawPanel(svg, judge);
+  }
 }
 
 function drawPanel(g, { title, sigma, unit, on, words }) {

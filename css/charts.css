@@ -21,6 +21,10 @@
 .acc-yours.dot { fill: var(--category-blue); }
 .acc-default.dot { fill: var(--color-gray-600); stroke-dasharray: none; }
 .acc-yours-text { fill: var(--color-fg); font-weight: 700; }
+/* The bell charts: three across, one under the other on a phone so their labels stay readable. */
+.bells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 16px; }
+.bell-panel { width: 100%; height: auto; display: block; }
+@media (max-width: 600px) { .bells { grid-template-columns: minmax(0, 320px); } }
 .chart:empty { display: none; } /* the vote charts stay hidden until the first swipe */
 
 .explain { margin: 56px 0 0; }

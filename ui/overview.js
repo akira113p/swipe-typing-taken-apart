@@ -34,7 +34,7 @@ export function buildOverview() {
     <div class="cards">${PIPELINE.map(card).join("")}</div>
     <h3>4. Three judges</h3>
     <div class="cards">${JUDGES.map(card).join("")}</div>
-    <p data-text="bellShort"></p><svg id="bell-chart" class="chart"></svg>
+    <p data-text="bellShort"></p><div id="bell-chart" class="chart bells"></div>
     <div class="cards">${card(VOTE)}</div>`;
 }
 

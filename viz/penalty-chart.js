@@ -8,16 +8,24 @@ export const PARTS = [
 ];
 const ROWS = 5;
 const ROW_HEIGHT = 30;
-const WIDTH = 600;
-const WORD_COLUMN = 100;
-const TOTAL_COLUMN = 130;
+const MAX_WIDTH = 600; // wider screens just scale this up
+const MIN_WIDTH = 280;
+const WORD_COLUMN = 90;
+const TOTAL_COLUMN = 120;
+const LEGEND_ITEM = 105; // room for one coloured square and its name
+const LEGEND_LINE = 22;
 
 export function drawPenalties(svg, candidates, inspected) {
+  // Drawn at the width it is shown, up to 600: on a phone a 600-wide drawing squeezed into ~330 pixels
+  // would shrink the text to about 6 pixels.
+  const width = Math.round(Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, svg.parentElement.clientWidth)));
+  const perLine = Math.max(1, Math.floor((width - WORD_COLUMN) / LEGEND_ITEM));
+  const legendLines = Math.ceil(PARTS.length / perLine);
   const rows = candidates.slice(0, ROWS);
-  const height = rows.length * ROW_HEIGHT + 40;
-  resetChart(svg, WIDTH, height);
+  const height = rows.length * ROW_HEIGHT + 16 + legendLines * LEGEND_LINE;
+  resetChart(svg, width, height);
   const most = Math.max(...rows.map((c) => c.points), 1e-9);
-  const scale = (WIDTH - WORD_COLUMN - TOTAL_COLUMN) / most;
+  const scale = (width - WORD_COLUMN - TOTAL_COLUMN) / most;
   rows.forEach((c, r) => {
     const y = r * ROW_HEIGHT + 6;
     const wordClass = c.word === inspected ? "chart-word chart-focus" : "chart-word";
@@ -30,12 +38,14 @@ export function drawPenalties(svg, candidates, inspected) {
     }
     label(svg, x + 8, y + 15, `${number(c.points, 2)} pts → ${percent(c.share)}`);
   });
-  drawLegend(svg, height - 12);
+  drawLegend(svg, rows.length * ROW_HEIGHT + 26, perLine);
 }
 
-function drawLegend(svg, y) {
+/** The colour key, perLine entries per line. */
+function drawLegend(svg, top, perLine) {
   PARTS.forEach(([part, name], i) => {
-    const x = WORD_COLUMN + i * 115;
+    const x = WORD_COLUMN + (i % perLine) * LEGEND_ITEM;
+    const y = top + Math.floor(i / perLine) * LEGEND_LINE;
     el("rect", { x, y: y - 11, width: 14, height: 14, class: `pen-${part}` }, svg);
     label(svg, x + 20, y, name);
   });
