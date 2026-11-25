@@ -23,8 +23,13 @@ const JUDGES = [
 ];
 const VOTE = { title: "5. The vote", text: "voteShort", chart: "penalty-chart" };
 
+const DIAGRAM_ALT = "Flowchart: your swipe becomes equally spaced points, far-off words are pruned, " +
+  "three judges and word frequency score the rest, and the vote ranks the words.";
+
 export function buildOverview() {
   document.getElementById("overview").innerHTML = `
+    <svg id="diagram" class="chart diagram" role="img" aria-label="${DIAGRAM_ALT}"></svg>
+    <p class="figcap" data-text="diagramNote"></p>
     <p class="legend"><b>On the keyboard:</b> ${LEGEND.map(swatch).join("")}</p>
     <div class="cards">${PIPELINE.map(card).join("")}</div>
     <h3>4. Three judges</h3>

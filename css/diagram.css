@@ -1,0 +1,14 @@
+/* The pipeline diagram. A score's group sets --tone to its judge's colour; everything else is ink. */
+.explain .diagram { max-width: 970px; margin: 8px auto 0; }
+.tone-shape { --tone: var(--judge-shape); }
+.tone-place { --tone: var(--judge-place); }
+.tone-letters { --tone: var(--judge-letters); }
+.tone-frequency { --tone: var(--judge-frequency); }
+.d-box { fill: var(--color-surface); stroke: var(--tone, var(--color-fg)); stroke-width: 1.5; }
+.d-cap { fill: var(--tone); }
+.d-frame { fill: none; stroke: var(--color-gray-600); stroke-dasharray: 4 4; }
+.d-edge { fill: none; stroke: var(--tone, var(--color-fg)); stroke-width: 1.8; }
+.d-head { fill: var(--tone, var(--color-fg)); }
+.d-title { font-weight: 700; fill: var(--color-fg); }
+.d-detail { fill: var(--color-gray-600); }
+@media (max-width: 640px) { .explain .diagram { max-width: 420px; } }

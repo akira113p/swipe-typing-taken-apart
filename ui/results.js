@@ -2,7 +2,7 @@
 
 import { percent } from "./format.js";
 
-const SHOWN_BARS = 5;
+export const SHOWN_BARS = 5;
 const $ = (id) => document.getElementById(id);
 
 export function renderVerdict(candidates) {

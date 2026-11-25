@@ -8,3 +8,8 @@ export function number(x, digits) {
 export function percent(share) {
   return `${number(100 * share, share < 0.1 ? 1 : 0)}%`;
 }
+
+/** "{words} words" with { words: "10,000" } → "10,000 words". */
+export function fillPlaceholders(text, values) {
+  return text.replace(/\{(\w+)\}/g, (_, name) => values[name] ?? "");
+}

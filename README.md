@@ -34,7 +34,7 @@ The recognizer receives only the swipe's points, never anything from the page.
 
 ## What is computed and what is drawn by hand
 
-Every line, number, chart and vote is computed in the browser by our code from the swipe and the settings. The phone frame (`img/phone-frame.png`), the colours and the five ink panels under the title (`img/`) are decoration. What appears on the phone is computed: each swipe writes the vote's winner followed by a space, and the bar above the keys shows the three words with the most votes (`ui/notepad.js`). Tapping a suggestion swaps the last word; backspace deletes it. The example buttons slide along the word's keys with rounded corners; they are not recorded swipes. The accuracy test uses our simulated finger (`core/finger.js`), not real people.
+Every line, number, chart and vote is computed in the browser by our code from the swipe and the settings. The phone frame (`img/phone-frame.png`), the colours and the five ink panels under the title (`img/`) are decoration. What appears on the phone is computed: each swipe writes the vote's winner followed by a space, and the bar above the keys shows the three words with the most votes (`ui/notepad.js`). Tapping a suggestion swaps the last word; backspace deletes it. The example buttons slide along the word's keys with rounded corners; they are not recorded swipes. The accuracy test uses our simulated finger (`core/finger.js`), not real people. The flowchart at the top of *How it decides* is drawn by hand (`viz/diagram-layout.js` places every box); only its numbers come from the code. Its layout follows the architecture figure in the SHARK² paper.
 
 ## What the tests prove
 

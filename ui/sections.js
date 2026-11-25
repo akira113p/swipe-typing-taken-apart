@@ -2,17 +2,22 @@
 // {name} placeholders are filled from the core, so numbers in the prose match the code.
 
 import { DEFAULTS } from "../core/settings.js";
-import { number } from "./format.js";
+import { showDiagram } from "./diagram.js";
+import { fillPlaceholders, number } from "./format.js";
+import { SHOWN_BARS } from "./results.js";
 import { ACCURACY } from "./text/accuracy.js";
+import { DIAGRAM_NOTES } from "./text/diagram.js";
 import { LEAD } from "./text/lead.js";
 import { NOTES } from "./text/notes.js";
 import { OVERVIEW } from "./text/overview.js";
 
-const TEXT = { ...LEAD, ...OVERVIEW, ...ACCURACY, ...NOTES };
+const TEXT = { ...LEAD, ...OVERVIEW, ...ACCURACY, ...NOTES, ...DIAGRAM_NOTES };
 
 export function fillText(params) {
-  const values = { n: DEFAULTS.samplePoints, radius: number(DEFAULTS.pruneRadiusKeys, 1), ...params };
+  const radius = number(DEFAULTS.pruneRadiusKeys, 1);
+  const values = { n: DEFAULTS.samplePoints, radius, shown: SHOWN_BARS, ...params };
   document.querySelectorAll("[data-text]").forEach((node) => {
-    node.innerHTML = TEXT[node.dataset.text].replace(/\{(\w+)\}/g, (_, name) => values[name] ?? "");
+    node.innerHTML = fillPlaceholders(TEXT[node.dataset.text], values);
   });
+  showDiagram(values);
 }
