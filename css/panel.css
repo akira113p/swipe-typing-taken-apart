@@ -1,0 +1,44 @@
+/* The result column: verdict, bars, switches, sliders, table. */
+.result { border-top: .75px solid var(--ink); padding-top: 6px; }
+.verdict-word { font-family: var(--display); font-size: clamp(48px, 10vw, 64px); line-height: 1; min-height: 1em; }
+.verdict-meta { color: var(--grey); margin: 6px 0 12px; }
+.runners { display: grid; gap: 6px; }
+.runner { display: grid; grid-template-columns: 1.2em 7em 1fr 3.5em; align-items: center; gap: 10px; text-align: left;
+  width: 100%; background: none; border: .75px solid var(--rule); padding: 6px 10px; cursor: pointer; }
+.runner.selected { background: var(--wash); border-color: var(--blue); }
+.runner .r { color: var(--grey); font-size: 14px; font-variant-numeric: tabular-nums; }
+.runner .w { font-style: italic; font-size: 19px; overflow: hidden; text-overflow: ellipsis; }
+.runner .bar { height: 10px; background: #eceef6; }
+.runner .bar i { display: block; height: 100%; background: var(--blue); }
+.runner .n { color: var(--blue); text-align: right; font-variant-numeric: tabular-nums; }
+.runners .runner:first-child .w { font-weight: 700; }
+
+/* The funnel: three boxes, each a count from the recognizer. */
+.funnel { display: flex; gap: 30px; margin: 14px 0 0; }
+.funnel-step { flex: 1; position: relative; border-top: 2px solid var(--ink); padding-top: 4px; line-height: 1.2; }
+.funnel-step + .funnel-step::before { content: "→"; position: absolute; left: -22px; top: 8px; color: var(--grey); }
+.funnel-step b { display: block; font: 400 26px/1.1 var(--display); }
+.funnel-step span { font-size: 13px; color: var(--grey); }
+
+
+.small-h { font: 700 17px/1.3 var(--body); margin: 24px 0 0; }
+.switch { display: flex; gap: 10px; align-items: flex-start; margin: 8px 0; cursor: pointer; }
+.switch input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--blue); flex: none; }
+
+.slider { display: grid; grid-template-columns: 1fr auto; gap: 0 10px; margin: 12px 0; }
+.slider-name { font-weight: 700; }
+.slider output { color: var(--blue); font-variant-numeric: tabular-nums; }
+.slider input { grid-column: 1 / -1; width: 100%; accent-color: var(--blue); }
+.slider-help { grid-column: 1 / -1; font-size: 14px; color: var(--grey); }
+.button { background: var(--yellow); border: 1.5px solid var(--ink); border-radius: 6px; box-shadow: 2px 2px 0 var(--ink);
+  font-weight: 700; font-size: 15px; padding: 4px 14px; cursor: pointer; margin: 6px 0; }
+.button:active { transform: translate(2px, 2px); box-shadow: none; }
+.button:disabled { opacity: .5; cursor: wait; }
+
+.under { margin-top: 22px; border-top: .75px solid var(--rule); padding-top: 8px; }
+.under summary { font-family: var(--sc); letter-spacing: .04em; cursor: pointer; }
+.under table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }
+.under th { font-family: var(--sc); font-weight: 400; font-size: 12px; text-align: left;
+  border-bottom: .75px solid var(--ink); padding: 4px; }
+.under td { border-bottom: .75px solid var(--rule); padding: 4px; color: var(--blue); font-variant-numeric: tabular-nums; }
+.under td:first-child { color: var(--ink); font-style: italic; }

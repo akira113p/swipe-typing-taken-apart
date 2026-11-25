@@ -7,64 +7,48 @@
 <meta name="description" content="Swipe a word across a keyboard and watch how your phone actually guesses it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+SC&family=IM+Fell+English&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/stage.css"><link rel="stylesheet" href="css/panel.css">
+<link rel="stylesheet" href="css/charts.css"><link rel="stylesheet" href="css/overview.css">
 </head>
 <body>
 <header class="top">
-  <button id="lang-toggle" class="lang" type="button">Português</button>
-  <h1 data-i18n="title">Your finger never types the word</h1>
+  <h1>Your finger never types the word</h1>
   <div class="rule2"></div>
-  <p class="lead" data-i18n="lead"></p>
+  <p class="lead" data-text="lead"></p>
 </header>
-
 <main class="demo">
-  <h2><span class="plate" data-i18n="plate">Plate I.</span> <span data-i18n="heading">Swipe a word</span></h2>
-  <p class="hint"><span data-i18n="hint">Slide your finger (or mouse) across the keys. Or try:</span>
-    <button class="chip" data-demo="keyboard">keyboard</button>
-    <button class="chip" data-demo="thanks">thanks</button>
-    <button class="chip" data-demo="music">music</button>
-    <button class="chip" data-demo="tip">tip</button>
-    <button class="chip" data-demo="hello">hello</button>
-  </p>
-
+  <h2><span class="plate">Plate I.</span> Swipe a word</h2>
+  <p class="hint"><span data-text="hint"></span>
+    <button class="chip" data-demo="hello">hello</button> <button class="chip" data-demo="keyboard">keyboard</button>
+    <button class="chip" data-demo="thanks">thanks</button> <button class="chip" data-demo="tip">tip</button>
+    <button class="chip" data-demo="you">you</button></p>
   <div class="stage">
-    <div class="board">
-      <svg id="keyboard" role="img"></svg>
-      <p class="figcap" data-i18n="boardCaption"></p>
-    </div>
-
+    <div class="board"><svg id="keyboard" role="img" aria-label="A keyboard you can swipe on"></svg>
+      <div class="apart"><h3 class="small-h">Take it apart</h3><div data-controls="switches"></div></div></div>
     <section class="result" aria-live="polite">
-      <div id="verdict-word" class="verdict-word">…</div>
-      <p id="verdict-meta" class="verdict-meta"></p>
-      <div id="runners" class="runners"></div>
-      <p id="funnel" class="funnel"></p>
-
-      <h3 class="small-h" data-i18n="takeApart"></h3>
-      <label class="switch"><input type="checkbox" id="use-shape" checked><span data-i18n="shapeSwitch"></span></label>
-      <label class="switch"><input type="checkbox" id="use-place" checked><span data-i18n="placeSwitch"></span></label>
-      <label class="switch"><input type="checkbox" id="use-prior" checked><span data-i18n="priorSwitch"></span></label>
-      <p class="figcap" data-i18n="tipHint"></p>
-
-      <details class="under">
-        <summary data-i18n="underHood"></summary>
-        <table>
-          <thead><tr><th data-i18n="thWord"></th><th data-i18n="thShape"></th><th data-i18n="thPlace"></th>
-            <th data-i18n="thFrequency"></th><th data-i18n="thVote"></th></tr></thead>
-          <tbody id="detail-rows"></tbody>
-        </table>
-        <p class="figcap" data-i18n="underCaption"></p>
-      </details>
+      <div id="verdict-word" class="verdict-word">…</div><p id="verdict-meta" class="verdict-meta"></p>
+      <div id="runners" class="runners"></div><div id="funnel" class="funnel"></div>
+      <details class="under"><summary>Tune every number</summary>
+        <div data-controls="sliders"></div><button data-reset class="button" type="button">Back to the defaults</button></details>
+      <details class="under"><summary>Under the hood</summary><table><thead><tr><th>Word</th><th>Shape gap</th>
+        <th>Place gap</th><th>Letters gap</th><th>Per million</th><th>Points</th><th>Vote</th></tr></thead>
+        <tbody id="detail-rows"></tbody></table></details>
     </section>
   </div>
+  <section class="explain"><h2 class="sub">How it decides</h2>
+    <div id="overview"></div>
+    <h3>6. Your settings against the defaults</h3><p data-text="accuracyShort"></p>
+    <div class="test"><div class="test-controls"><div data-controls="switches"></div><div data-controls="sliders"></div>
+      <button data-reset class="button" type="button">Back to the defaults</button></div>
+      <div><button id="run-accuracy" class="button" type="button">Run the test</button> <span id="accuracy-status" class="figcap"></span>
+        <svg id="accuracy-chart" class="chart"></svg><div id="word-wall" class="word-wall"></div>
+        <p class="figcap" data-text="accuracyCaption"></p><p class="try" data-text="accuracyTry"></p></div></div>
+  </section>
 </main>
-
 <footer class="notes">
-  <p class="honest" data-i18n="honest"></p>
-  <ol>
-    <li id="fn1" data-i18n="fn1"></li>
-    <li id="fn2" data-i18n="fn2"></li>
-  </ol>
+  <p class="honest" data-text="honest"></p><p data-text="changes"></p><p data-text="short"></p>
+  <ol><li id="fn1" data-text="fn1"></li><li id="fn2" data-text="fn2"></li><li data-text="fn3"></li></ol>
 </footer>
-<script type="module" src="ui/app.js"></script>
+<script type="module" src="ui/main.js"></script>
 </body>
 </html>

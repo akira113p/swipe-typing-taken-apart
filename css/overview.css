@@ -1,0 +1,36 @@
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 22px; }
+.card { border: .75px solid var(--rule); border-top: 4px solid var(--ink); padding: 10px 14px 8px; font-size: 16px; }
+.card h4 { font: 700 18px/1.25 var(--body); margin: 0 0 6px; }
+.explain .card p { margin: 0 0 8px; }
+/* The judges wear the colours of the penalty chart, so a card and its bar segment are easy to match. */
+.judge-shape { border-top-color: var(--green); }
+.judge-place { border-top-color: var(--blue); }
+.judge-letters { border-top-color: var(--red); }
+.ours { font: 13px var(--sc); font-style: normal; background: var(--yellow-soft); padding: 0 5px; white-space: nowrap; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center; font-size: 15px; margin: 6px 0 14px; }
+.key-item { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.key-item svg { width: 46px; height: 18px; background: #f6f4ef; border-radius: 4px; }
+.card .chart { margin-top: 6px; }
+
+/* The accuracy test: the controls on the left, the chart and the word wall on the right. */
+.test { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 0 36px; align-items: start; }
+.test-controls { border-top: .75px solid var(--ink); padding-top: 4px; font-size: 16px; }
+.test-controls .slider { margin: 8px 0; }
+.word-wall { margin-top: 8px; }
+.wall-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; color: var(--grey); margin: 0 0 6px; }
+.wall-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.wall-row { display: grid; grid-template-columns: 6.5em 1fr; gap: 8px; align-items: center; margin: 4px 0; }
+.wall-level { font-size: 13px; color: var(--grey); }
+.wall-cells { display: grid; grid-template-columns: repeat(50, 1fr); gap: 2px; }
+.test > * { min-width: 0; } /* lets the columns shrink below their content on a phone */
+.cell { display: inline-block; aspect-ratio: 1; border-radius: 2px; background: var(--rule); }
+.wall-legend .cell { width: 12px; }
+.cell.both { background: #9cc9a8; }
+.cell.gained { background: var(--blue); }
+.cell.lost { background: var(--red); }
+.cell.neither { background: #d9d6cf; }
+@media (max-width: 860px) {
+  .test { grid-template-columns: 1fr; }
+  .wall-cells { grid-template-columns: repeat(25, 1fr); }
+}
