@@ -16,8 +16,9 @@ export const OVERVIEW = {
   lettersShort: `<span class="ours">our addition</span> For each letter of the word, finds the closest point of
     your swipe, keeping the letters in order. Score: how far, on average, your swipe passes from each letter.`,
   bellShort: `How each judge turns a gap into a score. <b>Across:</b> the gap between your swipe and the word
-    (0 = perfect). <b>Up:</b> the score the judge gives (top = 100%). The dashed line is σ, the judge's tolerance:
-    at that gap the score has dropped to 61%. The dots are the leading words.`,
-  voteShort: `Each judge gives every word penalty points: the bigger its gap, the more points. Rare words get a few
-    extra points. The word with the fewest points in total wins.`,
+    (0 = perfect, further right = worse). <b>Up:</b> the score the judge gives (top = 100%). The dashed line is σ, the
+    judge's usual error, where the score is 61%: a dot left of it does better than usual, a dot right of it does
+    worse. The dots are the leading words.`,
+  voteShort: `Each bar is one word. Each colour is the penalty points from one judge: the bigger its gap, the more
+    points (gold: the extra points rare words pay). The shortest bar, the fewest points in total, wins.`,
 };

@@ -7,6 +7,12 @@ const BELL_WORDS = 3;
 const $ = (id) => document.getElementById(id);
 
 export function renderFigures(candidates, s, inspected) {
+  if (candidates.length === 0) {
+    // Nothing was judged, so there is nothing to chart (an empty chart is hidden by css/charts.css).
+    $("penalty-chart").replaceChildren();
+    $("bell-chart").replaceChildren();
+    return;
+  }
   drawPenalties($("penalty-chart"), candidates, inspected);
   const top = candidates.slice(0, BELL_WORDS);
   const focus = candidates.find((c) => c.word === inspected);
