@@ -4,11 +4,35 @@
 
 Built for the Global Virtual Hackathon 2026. Plain JavaScript in ES modules, HTML and CSS. No framework, no library, no build step, no server code, no API key.
 
+## What it looks like
+
+Swipe on the phone (or press an example). The winner is typed, the vote is shown on the right, and the funnel counts how many of the 10,000 words survive each step.
+
+![The phone after swiping hello: the swipe on the keys, the vote and the funnel](screenshots/1-swipe.png)
+
+*How it decides* starts with the whole pipeline. The dark tags name the switches and sliders that change each step.
+
+![Flowchart: swipe, equal points, pruning, three judges and frequency, the vote, the ranked words](screenshots/2-pipeline.png)
+
+Each judge is drawn on your own swipe, recomputed on every swipe and every slider move.
+
+![The shape, place and letters judges drawn on a hello swipe](screenshots/3-judges.png)
+
+The vote: each colour is one judge's penalty points. The shortest bar wins; the dashed line is the winner's total.
+
+![Penalty points per judge for hello, help, hero, go and grip](screenshots/4-vote.png)
+
+*Your settings against the defaults*: a simulated finger swipes 100 random words at five levels of sloppiness, read with your settings and with the defaults. Each square is one word.
+
+![Accuracy chart and the word wall](screenshots/5-accuracy.png)
+
+<img src="screenshots/6-on-a-phone.png" alt="The page on a phone after swiping keyboard" width="320">
+
 ## Try it
 
 ```
 python serve.py        # then open http://localhost:8000
-node --test            # 21 tests, Node 24, no dependencies
+node --test            # 24 tests, Node 24, no dependencies
 ```
 
 `serve.py` is `python -m http.server` plus a header that stops the browser reusing old files, so edits show up on reload. Any static server works, including GitHub Pages.
@@ -82,6 +106,7 @@ viz/            drawing: keyboard, charts, figures
 css/            tokens, components, layout
 data/           word list and its licence
 img/            decoration only
+screenshots/    the pictures in this README
 tests/          node --test
 serve.py        local server without caching
 ```
