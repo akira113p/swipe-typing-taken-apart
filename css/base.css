@@ -32,10 +32,11 @@ h1 { font-size: clamp(34px, 6.5vw, 60px); line-height: 1.05; letter-spacing: -.0
 .op-letter { font: 700 .45px var(--sans); fill: var(--color-fg); text-anchor: middle; paint-order: stroke; stroke: var(--color-white); stroke-width: .06; }
 .op-label { font: .42px var(--sans); fill: var(--color-gray-600); }
 .op-written { font: italic 700 .8px var(--serif); fill: var(--color-fg); }
-.op-start { fill: var(--color-fg); }
+.op-start, .op-arrow { fill: var(--color-fg); }
 /* The line draws itself, then the touched keys appear one by one, then the result. --1s is 1 ms with reduced motion. */
 .op-swipe { fill: none; stroke: var(--color-fg); stroke-width: .06; stroke-linecap: round; stroke-linejoin: round;
   stroke-dasharray: 1; stroke-dashoffset: 1; animation: op-draw calc(2.2 * var(--1s)) ease-in-out calc(.4 * var(--1s)) forwards; }
+.op-arrow { opacity: 0; animation: op-show calc(.2 * var(--1s)) calc(2.55 * var(--1s)) forwards; }
 .op-cap, .op-result { opacity: 0; animation: op-show calc(.25 * var(--1s)) calc((2.7 + var(--i) * .12) * var(--1s)) forwards; }
 @keyframes op-draw { to { stroke-dashoffset: 0; } }
 @keyframes op-show { to { opacity: 1; } }

@@ -3,7 +3,7 @@
 // They draw what the core computed; they decide nothing.
 
 import { KEYBOARD_HEIGHT_KEYS, KEYBOARD_WIDTH_KEYS, KEY_HEIGHT_KEYS } from "../core/keyboard.js";
-import { el, toPoints } from "./svg.js";
+import { arrowHead, el, toPoints } from "./svg.js";
 
 const MARGIN_KEYS = 0.1;
 const CAPTION_KEYS = 0.8; // room under the drawing for one line of text
@@ -33,8 +33,10 @@ export function caption(svg, text, x = WIDTH / 2) {
   el("text", { x, y: HEIGHT + 0.6, class: "mini-caption" }, svg).textContent = text;
 }
 
+/** A path with an arrowhead showing which way it was drawn. */
 export function line(svg, points, className) {
   el("polyline", { points: toPoints(points), class: className }, svg);
+  arrowHead(svg, points, `${className}-arrow`, 0.26);
 }
 
 export function dots(svg, points, className, r) {

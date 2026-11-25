@@ -1,18 +1,22 @@
 // Everything drawn over the keys. It draws what the core computed; it decides nothing.
 
-import { el, toPoints } from "./svg.js";
+import { arrowHead, el, toPoints } from "./svg.js";
+
+const ARROW_KEYS = 0.28; // arrowhead length, in key widths
 
 export function createOverlay(layer) {
   function stroke(points) {
     if (points.length === 0) return;
     el("polyline", { points: toPoints(points), class: "swipe" }, layer);
     el("circle", { cx: points[0][0], cy: points[0][1], r: 0.12, class: "swipe-start" }, layer);
+    arrowHead(layer, points, "swipe-arrow", ARROW_KEYS);
   }
 
   /** The inspected word: a yellow target on each of its keys and its ideal line in blue. */
   function word(focus, targetRadius) {
     for (const [x, y] of focus.keys) el("circle", { cx: x, cy: y, r: targetRadius, class: "target" }, layer);
     el("polyline", { points: toPoints(focus.path), class: "ideal" }, layer);
+    arrowHead(layer, focus.path, "ideal-arrow", ARROW_KEYS * 0.8);
   }
 
   /** Red: from each letter to the spot of the swipe the letters judge matched it with. */

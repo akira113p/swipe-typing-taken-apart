@@ -27,3 +27,19 @@ export function resetChart(svg, width, height) {
   svg.replaceChildren();
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
 }
+
+/**
+ * An arrowhead at the end of a path, pointing the way it was drawn: the recognizer compares point i
+ * with point i, so a line read backwards is a different line ("on" and "no" share one segment).
+ * It follows the last step that actually moves, because a finger often ends with repeated points.
+ */
+export function arrowHead(parent, path, className, size) {
+  const tip = path[path.length - 1];
+  const from = path.findLast(([x, y]) => Math.hypot(tip[0] - x, tip[1] - y) > size / 4);
+  if (!from) return;
+  const length = Math.hypot(tip[0] - from[0], tip[1] - from[1]);
+  const [dx, dy] = [(tip[0] - from[0]) / length, (tip[1] - from[1]) / length];
+  const back = [tip[0] - dx * size, tip[1] - dy * size];
+  const wing = (side) => [back[0] - side * dy * size * 0.6, back[1] + side * dx * size * 0.6];
+  el("polygon", { points: toPoints([tip, wing(1), wing(-1)]), class: className }, parent);
+}

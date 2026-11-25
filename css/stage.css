@@ -17,7 +17,8 @@ body.ready #keyboard { opacity: 1; }
 .erase-sign { fill: none; stroke: var(--color-fg); stroke-width: .05; stroke-linejoin: round; stroke-linecap: round; }
 @media (hover: hover) { .erase:hover .key { fill: var(--color-gray-100); } }
 .swipe { fill: none; stroke: var(--color-fg); stroke-width: .085; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
-.swipe-start { fill: var(--color-fg); }
+.swipe-start, .swipe-arrow { fill: var(--color-fg); }
+.ideal-arrow { fill: var(--category-blue); }
 .sample { fill: var(--color-white); }
 .target { fill: var(--category-yellow); opacity: .55; }
 .ideal { fill: none; stroke: var(--category-blue); stroke-width: .05; stroke-linecap: round; stroke-linejoin: round; }

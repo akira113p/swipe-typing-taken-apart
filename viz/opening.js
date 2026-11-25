@@ -2,7 +2,7 @@
 // Laid out in key widths, like the big keyboard. It draws what core/crossed.js computed.
 
 import { KEYBOARD_HEIGHT_KEYS, KEYBOARD_WIDTH_KEYS, KEY_HEIGHT_KEYS } from "../core/keyboard.js";
-import { el, toPoints } from "./svg.js";
+import { arrowHead, el, toPoints } from "./svg.js";
 
 const KEY_GAP_KEYS = 0.12;
 const CAP_KEYS = 0.62; //  one small key in the row of touched keys
@@ -26,6 +26,11 @@ export function drawOpening(svg, { centers, path, crossed, word }) {
   // pathLength="1" lets css/base.css draw the line in, from 0% to 100% of its length.
   el("polyline", { points: toPoints(path), pathLength: 1, class: "op-swipe" }, svg);
   el("circle", { cx: path[0][0], cy: path[0][1], r: 0.1, class: "op-start" }, svg);
+  // One arrow halfway along each leg (h → e, e → l, l → o), so the direction reads at a glance.
+  path.slice(1).forEach((to, i) => {
+    const from = path[i];
+    arrowHead(svg, [from, [(from[0] + to[0]) / 2, (from[1] + to[1]) / 2]], "op-arrow", 0.3);
+  });
   for (const [letter, [x, y]] of keys) text(svg, x, y + 0.16, letter, "op-letter"); // on top of the line
 
   text(svg, 0, TAPE_TOP_KEYS, "every key your finger touches:", "op-label");
