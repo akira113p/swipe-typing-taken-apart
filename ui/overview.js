@@ -17,9 +17,9 @@ const PIPELINE = [
   { title: "3. Pruning: drop the far-off words", text: "pruneShort", chart: "step-prune" },
 ];
 const JUDGES = [
-  { title: "Shape judge: same drawing?", text: "shapeShort", part: "shape", chart: "step-shape" },
-  { title: "Place judge: on the right keys?", text: "placeShort", part: "place", chart: "step-place" },
-  { title: "Letters judge: every letter, in order?", text: "lettersShort", part: "letters", chart: "step-letters" },
+  { title: "Shape judge: the shape", text: "shapeShort", part: "shape", chart: "step-shape" },
+  { title: "Place judge: the position", text: "placeShort", part: "place", chart: "step-place" },
+  { title: "Letters judge: every letter, in order", text: "lettersShort", part: "letters", chart: "step-letters" },
 ];
 const VOTE = { title: "5. The vote", text: "voteShort", chart: "penalty-chart" };
 

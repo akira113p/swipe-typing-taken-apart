@@ -2,10 +2,10 @@
 // straight into recognize() as options. `rebuild` = the word lines must be prepared again.
 
 export const SWITCHES = [
-  { key: "usePruning", label: "<b>Pruning</b>: drop words that start or end far from your swipe." },
-  { key: "useShape", label: "<b>Shape judge</b>: same drawing?" },
-  { key: "usePlace", label: "<b>Place judge</b>: on the right keys?" },
-  { key: "useLetters", label: "<b>Letters judge</b>: every letter, in order?" },
+  { key: "usePruning", label: "<b>Pruning</b>: keep a word only if its first and last keys are near where your swipe starts and ends." },
+  { key: "useShape", label: "<b>Shape judge</b>: compares the shape of the two lines." },
+  { key: "usePlace", label: "<b>Place judge</b>: compares where the two lines sit on the keys." },
+  { key: "useLetters", label: "<b>Letters judge</b>: checks that your swipe passes every letter, in order." },
   { key: "usePrior", label: "<b>Word frequency</b>: common words win ties." },
 ];
 
