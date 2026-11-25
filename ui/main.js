@@ -1,5 +1,4 @@
 // The page: reads the finger, calls the core, shows what it returns.
-
 import { keyCenters } from "../core/keyboard.js";
 import { parseWordList } from "../core/lexicon.js";
 import { recognize } from "../core/recognizer.js";
@@ -15,6 +14,7 @@ import { buildOverview } from "./overview.js";
 import { attachPointer } from "./pointer.js";
 import { renderResult } from "./render.js";
 import { fillText } from "./sections.js";
+import { setUpSloppy } from "./sloppy.js";
 
 const $ = (id) => document.getElementById(id);
 const centers = keyCenters();
@@ -38,8 +38,7 @@ function vote(newSwipe = false) {
 }
 const inspect = (word) => { state.inspected = word; render(); };
 const render = () => renderResult(state, overlay, inspect);
-// N and the smallest shape change every word's prepared line, so the lines are built again.
-const prepareWords = () => { state.templates = buildTemplates(state.lexicon.words, centers, readSettings()); };
+const prepareWords = () => { state.templates = buildTemplates(state.lexicon.words, centers, readSettings()); }; // again when N changes
 
 async function start() {
   buildOverview();
@@ -54,6 +53,7 @@ async function start() {
   prepareWords();
   fillText({ words: number(state.lexicon.words.length, 0), count: WORDS_PER_POINT });
   $("verdict-meta").textContent = "Swipe a word, or tap one of the examples.";
+  setUpSloppy(() => ({ ...state, centers, settings: readSettings() }));
   document.body.classList.add("ready");
 }
 

@@ -30,14 +30,14 @@
 .bells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 16px; }
 .bell-panel { width: 100%; height: auto; display: block; }
 @media (max-width: 600px) { .bells { grid-template-columns: minmax(0, 320px); } }
-/* Under the accuracy chart: the taps each level of sloppiness makes on one key. */
-.tap-key { fill: var(--color-white); stroke: var(--color-fg); stroke-width: 1.2; }
-.tap { fill: var(--color-fg); }
-.tap-out { fill: var(--category-red); }
 /* Point at a level (or slide a finger along them) to pick it: ui/sloppy.js shows its example swipe. */
 #accuracy-chart { touch-action: pan-y; }
 .acc-band { fill: transparent; cursor: pointer; }
-.acc-level.picked .acc-band { fill: var(--color-surface); }
+.acc-level.picked text { fill: var(--category-blue); }
+.acc-level.picked .chart-focus { text-decoration: underline; }
+.sloppy-word { text-align: center; font: 15px var(--sans); margin: 10px 0 4px; }
+.read-right { color: var(--category-green); }
+.read-wrong { color: var(--category-red); }
 .explain .chart.sloppy-example { max-width: 420px; margin: 4px auto 0; background: var(--color-surface); border-radius: var(--border-radius); }
 .chart:empty { display: none; } /* the vote charts stay hidden until the first swipe */
 

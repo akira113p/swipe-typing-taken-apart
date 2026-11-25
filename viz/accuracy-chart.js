@@ -3,11 +3,10 @@
 import { KEY_WIDTH_MM, toMillimetres } from "../core/keyboard.js";
 import { number } from "../ui/format.js";
 import { el, label, resetChart, toPoints } from "./svg.js";
-import { drawTapKey } from "./tap-keys.js";
 
 const MAX_WIDTH = 600; // wider screens just scale this up
 const MIN_WIDTH = 320;
-const HEIGHT = 400;
+const HEIGHT = 290;
 const PLOT = { left: 50, rightMargin: 40, top: 20, bottom: 210 };
 
 /**
@@ -23,21 +22,18 @@ export function drawAccuracy(svg, levels, names, series) {
   const step = (right - PLOT.left) / (levels.length - 1);
   const x = (i) => PLOT.left + i * step;
   const y = (rate) => PLOT.bottom - rate * (PLOT.bottom - PLOT.top);
-  const keyPx = Math.min(30, Math.max(17, step * 0.23));
   levels.forEach((level, i) => {
     const group = el("g", { class: `acc-level${String(i) === svg.dataset.picked ? " picked" : ""}`, "data-level": i }, svg);
     el("rect", { x: x(i) - step / 2, y: 0, width: step, height: HEIGHT - 44, class: "acc-band" }, group);
     label(group, x(i), PLOT.bottom + 18, names[i], "chart-small chart-focus", "middle");
     label(group, x(i), PLOT.bottom + 33, `${number(toMillimetres(level), 1)} mm`, "chart-small", "middle");
-    drawTapKey(group, x(i), PLOT.bottom + 86, keyPx, level);
   });
   for (const rate of [0, 0.25, 0.5, 0.75, 1]) {
     el("line", { x1: PLOT.left, y1: y(rate), x2: right, y2: y(rate), class: "grid" }, svg);
     label(svg, PLOT.left - 8, y(rate) + 4, `${number(rate * 100, 0)}%`, "chart-small", "end");
   }
-  label(svg, width / 2, HEIGHT - 36, "about how far the finger lands from each key's centre →", "chart-label chart-focus", "middle");
-  label(svg, width / 2, HEIGHT - 20, `a phone key is about ${number(KEY_WIDTH_MM, 0)} mm wide`, "chart-small", "middle");
-  label(svg, width / 2, HEIGHT - 4, "dots: taps aimed at one key (red = landed outside)", "chart-small", "middle");
+  label(svg, width / 2, HEIGHT - 20, "about how far the finger lands from each key's centre →", "chart-label chart-focus", "middle");
+  label(svg, width / 2, HEIGHT - 4, `a phone key is about ${number(KEY_WIDTH_MM, 0)} mm wide`, "chart-small", "middle");
   series.forEach(({ name, className, rates }, s) => {
     const done = rates.map((rate, i) => [x(i), rate]).filter(([, rate]) => rate !== undefined);
     if (done.length > 1) el("polyline", { points: toPoints(done.map(([px, rate]) => [px, y(rate)])), class: className }, svg);

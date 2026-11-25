@@ -28,12 +28,6 @@ export function aimAt([x, y], miss, random) {
   return [x + random.normal() * miss, y + random.normal() * miss];
 }
 
-/** `count` taps aimed at the point [0, 0], to show on the accuracy chart how far a finger lands. */
-export function sampleTaps(miss, count, seed) {
-  const random = randomSource(seed);
-  return Array.from({ length: count }, () => aimAt([0, 0], miss, random));
-}
-
 /**
  * miss: how far the finger lands from each key centre. bow: how much each hop between
  * two keys curves sideways, as a share of its length. wobble: shake on every point.
