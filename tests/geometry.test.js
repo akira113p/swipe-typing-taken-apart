@@ -2,10 +2,12 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+import { keysNear } from "../core/keyboard.js";
 import { letterHits } from "../core/letters.js";
 import { resample, wordKeys } from "../core/path.js";
 import { normalizeShape } from "../core/shape.js";
-import { centers, perfect } from "./setup.js";
+import { DEFAULTS } from "../core/settings.js";
+import { centers, curvedHello, perfect, vote } from "./setup.js";
 
 test("resampled points are equally spaced", () => {
   const r = resample([[0, 0], [3, 0], [3, 4]], 8);
@@ -45,4 +47,12 @@ test("letters judge: a curve between two letters costs nothing", () => {
   const [h, e] = perfect("he");
   const curve = [h, [(h[0] + e[0]) / 2, h[1] + 1.2], e]; // bulges more than a key away from the straight line
   assert.ok(letterHits(resample(curve, 48), [h, e]).gap < 1e-9);
+});
+
+test("the keys the pruning figure colours are the recognizer's rule: every word kept starts and ends on them", () => {
+  const { gesture, candidates } = vote(curvedHello);
+  const start = keysNear(gesture[0], centers, DEFAULTS.pruneRadiusKeys);
+  const end = keysNear(gesture[gesture.length - 1], centers, DEFAULTS.pruneRadiusKeys);
+  assert.ok(candidates.length > 0);
+  for (const { word } of candidates) assert.ok(start.includes(word[0]) && end.includes(word.at(-1)), word);
 });

@@ -6,9 +6,10 @@ export const OVERVIEW = {
   pointsShort: `Your swipe and every word line are redrawn as {n} points, evenly spaced along the line. Point 1 of
     your swipe is then compared with point 1 of a word, point 2 with point 2, and so on. Speed stops mattering; only
     the path counts.`,
-  pruneShort: `Throws out every word whose first key is more than {radius} keys from where your swipe starts, or
-    whose last key is more than {radius} keys from where it ends. Of {words} words, usually only a few dozen are
-    left for the judges.`,
+  pruneShort: `A quick cut before the judges. People aim carefully at the first and the last letter, so a word
+    stays only if it <b>starts on a light-blue key</b> (within {radius} keys of where your swipe starts) and <b>ends on a
+    purple key</b> (within {radius} keys of where it ends; a key with both colours counts for both). Every other word is thrown out: of {words}, usually
+    about one in ten is left for the judges.`,
   shapeShort: `Resizes your swipe and the word's line to the same size and lays one on top of the other. Score:
     the average distance between matching points. Where on the keyboard you drew does not matter.`,
   placeShort: `Compares your swipe with the word's line where both really are on the keyboard, nothing resized.

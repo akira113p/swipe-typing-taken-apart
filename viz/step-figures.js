@@ -24,12 +24,15 @@ export function drawPoints(svg, raw, sampled, [leftText, rightText]) {
   });
 }
 
-/** The circles around the swipe's two ends, and the words whose first and last keys fall inside. */
-export function drawPrune(svg, centers, swipe, radius, kept, text) {
+/** The keys a word may start on (near the swipe's start) and end on (near its end). */
+export function drawPrune(svg, centers, swipe, { start, end }, text) {
   startFigure(svg);
-  faintKeys(svg, centers);
-  for (const path of kept) line(svg, path, "runner-up");
-  if (radius > 0) dots(svg, [swipe[0], swipe[swipe.length - 1]], "prune-zone", radius);
+  const tint = {};
+  for (const letter of start) tint[letter] = "zone-start";
+  for (const letter of end) tint[letter] = tint[letter] ? "zone-start zone-end" : "zone-end";
+  faintKeys(svg, centers, tint);
   line(svg, swipe, "swipe");
+  dots(svg, [swipe[0]], "start-dot", 0.16);
+  dots(svg, [swipe[swipe.length - 1]], "end-dot", 0.16);
   caption(svg, text);
 }

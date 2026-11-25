@@ -1,13 +1,12 @@
 // Feeds the small figures in the "How it decides" cards with the last swipe and the word you inspect.
 
-import { keyCenters } from "../core/keyboard.js";
+import { keyCenters, keysNear } from "../core/keyboard.js";
 import { keyLetters } from "../core/path.js";
 import { drawLetters, drawPlace, drawShape } from "../viz/judge-figures.js";
 import { drawDictionary, drawPoints, drawPrune } from "../viz/step-figures.js";
 import { number } from "./format.js";
 
 const centers = keyCenters();
-const MAX_DRAWN_WORDS = 8; // the leading survivors; more lines turn the pruning figure into a blur
 const WORD_FIGURES = ["step-dictionary", "step-shape", "step-place", "step-letters"];
 const $ = (id) => document.getElementById(id);
 
@@ -15,8 +14,9 @@ const $ = (id) => document.getElementById(id);
 export function renderSteps({ stroke, result, inspected }, s) {
   const { gesture, gestureShape, funnel, candidates } = result;
   drawPoints($("step-points"), stroke, gesture, [`your finger: ${stroke.length} points`, `${gesture.length} points, evenly spaced`]);
-  drawPrune($("step-prune"), centers, gesture, s.usePruning ? s.pruneRadiusKeys : 0,
-    s.usePruning ? candidates.slice(0, MAX_DRAWN_WORDS).map((c) => c.path) : [], pruneText(funnel, s));
+  const near = (point) => (s.usePruning ? keysNear(point, centers, s.pruneRadiusKeys) : []);
+  const zones = { start: near(gesture[0]), end: near(gesture[gesture.length - 1]) };
+  drawPrune($("step-prune"), centers, gesture, zones, pruneText(funnel, s));
 
   const word = candidates.find((c) => c.word === inspected);
   if (!word) {
@@ -38,5 +38,5 @@ export function renderSteps({ stroke, result, inspected }, s) {
 function pruneText(funnel, s) {
   const total = number(funnel[0][1], 0);
   if (!s.usePruning) return `pruning off: all ${total} words go to the judges`;
-  return `kept ${number(funnel[1][1], 0)} of ${total} words`;
+  return `${number(funnel[1][1], 0)} of ${total} words kept`;
 }

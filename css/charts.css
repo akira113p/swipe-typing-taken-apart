@@ -50,4 +50,9 @@
 .mini-caption { font: .42px var(--sans); fill: var(--color-fg); text-anchor: middle; }
 .key-dot { fill: var(--category-blue); }
 .pair { stroke: var(--color-gray-600); stroke-width: .02; }
-.prune-zone { fill: none; stroke: var(--color-fg); stroke-width: .04; stroke-dasharray: .15 .1; }
+/* Pruning: keys a word may start on, keys it may end on. Cyan and purple, because the judges own the other colours. */
+.zone-start { fill: color-mix(in srgb, var(--category-cyan) 45%, var(--color-white)); }
+.zone-end { fill: color-mix(in srgb, var(--category-purple) 30%, var(--color-white)); }
+.zone-start.zone-end { fill: color-mix(in srgb, var(--category-purple) 30%, var(--color-white)); stroke: var(--category-cyan); stroke-width: .12; } /* both */
+.start-dot { fill: var(--category-cyan); stroke: var(--color-fg); stroke-width: .04; }
+.end-dot { fill: var(--category-purple); stroke: var(--color-fg); stroke-width: .04; }

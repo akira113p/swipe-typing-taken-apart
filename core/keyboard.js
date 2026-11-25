@@ -2,6 +2,8 @@
 // SHARK2 uses (its tunnel is "one key width" wide). This keeps every number independent
 // of the screen size.
 
+import { distance } from "./path.js";
+
 export const ROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
 // How far each row starts to the right of the top row, in key widths. On touch keyboards
@@ -23,4 +25,9 @@ export function keyCenters() {
     });
   });
   return centers;
+}
+
+/** The letters whose key centre is at most `radius` key widths from `point` (the pruning zone). */
+export function keysNear(point, centers, radius) {
+  return Object.keys(centers).filter((letter) => distance(centers[letter], point) <= radius);
 }

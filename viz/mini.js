@@ -18,11 +18,12 @@ export function startFigure(svg) {
   svg.setAttribute("viewBox", box.join(" "));
 }
 
-/** Pale keys with their letters, so the lines have something to sit on. */
-export function faintKeys(svg, centers) {
+/** Pale keys with their letters, so the lines have something to sit on. tint: { letter: extra class }. */
+export function faintKeys(svg, centers, tint = {}) {
   const [w, h] = [1 - KEY_GAP_KEYS, KEY_HEIGHT_KEYS - KEY_GAP_KEYS];
   for (const [letter, [x, y]] of Object.entries(centers)) {
-    el("rect", { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: 0.15, class: "mini-key" }, svg);
+    const className = `mini-key ${tint[letter] ?? ""}`;
+    el("rect", { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: 0.15, class: className }, svg);
     el("text", { x, y: y + 0.15, class: "mini-letter" }, svg).textContent = letter;
   }
 }
