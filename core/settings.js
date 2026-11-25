@@ -11,7 +11,11 @@ export const DEFAULTS = {
   sigmaShape: 0.12, //            shape units: tolerance of the shape judge
   sigmaPlaceKeys: 0.4, //         key widths: tolerance of the place judge
   sigmaLettersKeys: 0.25, //      key widths: how far from a key centre a finger usually passes
-  pruneRadiusKeys: 1.5, //        key widths: first and last key must be this close to the swipe's ends
+  // key widths: first and last key must be this close to the swipe's ends. A mouse overshoots the last key
+  // by a fixed number of pixels, so the phone's smaller keys (~37 px, was 58) need a bigger radius: 2 keeps a
+  // swipe that ends 1.8 keys past its last letter. The simulated finger never overshoots (same accuracy from
+  // 1.5 to 3); a bigger radius only leaves more words to judge (median ~1,200 of 10,000 at 2).
+  pruneRadiusKeys: 2,
   priorWeight: 0.25, //           lambda: 1 (plain Bayes) let common words swamp the geometry
   usePruning: true,
   useShape: true,
