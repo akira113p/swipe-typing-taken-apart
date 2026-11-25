@@ -10,6 +10,11 @@
 .pen-place { fill: var(--judge-place); }
 .pen-letters { fill: var(--judge-letters); }
 .pen-frequency { fill: var(--judge-frequency); }
+/* The vote's winner: a band behind its row, its total as a dashed line, and an ink tag like the section headings. */
+.winner-band { fill: var(--color-surface); }
+.winner-line { stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.winner-tag { fill: var(--color-fg); }
+.winner-tag-text { font-size: 11px; font-weight: 700; letter-spacing: .04em; fill: var(--color-bg); }
 .bell { fill: none; stroke: var(--color-fg); stroke-width: 1.5; }
 .axis { stroke: var(--color-fg); stroke-width: 1; }
 .sigma-line { stroke: var(--color-gray-600); stroke-dasharray: 3 3; }

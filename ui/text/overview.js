@@ -21,5 +21,6 @@ export const OVERVIEW = {
     judge's usual error, where the score is 61%: a dot left of it does better than usual, a dot right of it does
     worse. The dots are the leading words.`,
   voteShort: `Each bar is one word. Each colour is the penalty points from one judge: the bigger its gap, the more
-    points (gold: the extra points rare words pay). The shortest bar, the fewest points in total, wins.`,
+    points (gold: the extra points rare words pay). The shortest bar, the fewest points in total, wins. The dashed
+    line is the winner's total: the part of a bar past it is how far that word fell behind.`,
 };
