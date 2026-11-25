@@ -1,14 +1,14 @@
-/* The phone: a hand-drawn frame (img/phone-frame.png, 790 x 1505 px) with three live parts on its screen.
+/* The phone: a hand-drawn frame (img/phone-frame.png, 790 x 1255 px) with three live parts on its screen.
    Every position is a percentage of that image, so the parts stay on the drawing at any size.
    Its height never passes the window's, so the notes and the keys are always seen together. */
-:root { --phone-width: min(600px, calc((100svh - 32px) * 790 / 1505)); }
-.phone { position: relative; width: min(100%, var(--phone-width)); aspect-ratio: 790 / 1505; container-type: inline-size;
+:root { --phone-width: min(480px, calc((100svh - 32px) * 790 / 1255)); }
+.phone { position: relative; width: min(100%, var(--phone-width)); aspect-ratio: 790 / 1255; container-type: inline-size;
   user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; } /* swiping must never select text */
 .phone-frame { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-/* The notes: inside the screen (x 56–733 px, y 50–1011 px), clear of the rounded corners.
+/* The notes: inside the screen (x 56–733 px, y 50–761 px), clear of the rounded corners.
    pre-wrap keeps the space after the last word visible, so the cursor sits where the next word will go. */
-.screen-text { position: absolute; left: 11%; width: 78%; top: 6.7%; height: 60.5%; margin: 0; overflow-y: auto;
+.screen-text { position: absolute; left: 11%; width: 78%; top: 8%; height: 52.6%; margin: 0; overflow-y: auto;
   font: 400 5.2cqw/1.4 var(--sans); white-space: pre-wrap; overflow-wrap: anywhere; scrollbar-width: none; }
 .screen-text::after { content: ""; display: inline-block; width: .1em; height: 1.15em; vertical-align: -.22em;
   background: var(--color-fg); animation: caret calc(1.1 * var(--1s)) steps(1) infinite; }
@@ -16,8 +16,8 @@
 .screen-text:empty::after { position: absolute; left: 0; top: .12em; } /* with no text yet, the cursor waits at the start */
 @keyframes caret { 50% { opacity: 0; } }
 
-/* The suggestion strip sits where the drawing had its message bar: x 58–731 px, y 1031–1123 px. */
-.suggestions { position: absolute; left: 7.3%; width: 85.2%; top: 68.5%; height: 6.1%;
+/* The suggestion strip sits where the drawing had its message bar: x 58–731 px, y 781–873 px. */
+.suggestions { position: absolute; left: 7.3%; width: 85.2%; top: 62.2%; height: 7.3%;
   display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; }
 .suggestion { height: 80%; min-width: 0; padding: 0 4px; background: none; border: 0; border-radius: var(--border-radius);
   font: 400 4.3cqw var(--sans); color: var(--color-fg); cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -25,8 +25,8 @@
 .suggestion.written { font-weight: 700; }
 @media (hover: hover) { .suggestion:hover { background: var(--color-gray-100); } }
 
-/* The keyboard fills the screen's width below the divider line (y 1136 px). */
-.phone #keyboard { position: absolute; left: 7.3%; width: 85.2%; top: 75.5%; }
+/* The keyboard fills the screen's width below the divider line (y 886 px). */
+.phone #keyboard { position: absolute; left: 7.3%; width: 85.2%; top: 70.6%; }
 
 /* On a narrow screen the phone stands alone in the column: centre it. The frame stays, since the
    keyboard takes 85% of its width (keys ~29 px on a 390 px phone, about the same as without the frame). */
