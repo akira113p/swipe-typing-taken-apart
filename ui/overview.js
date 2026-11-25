@@ -12,14 +12,14 @@ const LEGEND = [
   ["letter matches", `<line class="hit" ${LINE}/><circle class="hit-spot" cx=".9" cy=".2" r=".05"/>`],
 ];
 const PIPELINE = [
-  { title: "1. The dictionary", text: "dictShort" },
-  { title: "2. Same number of points", text: "pointsShort" },
-  { title: "3. Pruning: drop the far-off words", text: "pruneShort" },
+  { title: "1. The dictionary", text: "dictShort", chart: "step-dictionary" },
+  { title: "2. Same number of points", text: "pointsShort", chart: "step-points" },
+  { title: "3. Pruning: drop the far-off words", text: "pruneShort", chart: "step-prune" },
 ];
 const JUDGES = [
-  { title: "Shape judge: same drawing?", text: "shapeShort", part: "shape" },
-  { title: "Place judge: on the right keys?", text: "placeShort", part: "place" },
-  { title: "Letters judge: every letter, in order?", text: "lettersShort", part: "letters" },
+  { title: "Shape judge: same drawing?", text: "shapeShort", part: "shape", chart: "step-shape" },
+  { title: "Place judge: on the right keys?", text: "placeShort", part: "place", chart: "step-place" },
+  { title: "Letters judge: every letter, in order?", text: "lettersShort", part: "letters", chart: "step-letters" },
 ];
 const VOTE = { title: "5. The vote", text: "voteShort", chart: "penalty-chart" };
 
@@ -33,10 +33,10 @@ export function buildOverview() {
     <div class="cards">${card(VOTE)}</div>`;
 }
 
-/** part colours a judge's card like its bar in the penalty chart. */
+/** part colours a judge's card like its bar in the penalty chart. The figure comes first, so figures side by side line up. */
 function card({ title, text, part, chart }) {
   const svg = chart ? `<svg id="${chart}" class="chart"></svg>` : "";
-  return `<article class="card${part ? ` judge-${part}` : ""}"><h4>${title}</h4><p data-text="${text}"></p>${svg}</article>`;
+  return `<article class="card${part ? ` judge-${part}` : ""}"><h4>${title}</h4>${svg}<p data-text="${text}"></p></article>`;
 }
 
 function swatch([name, drawing]) {

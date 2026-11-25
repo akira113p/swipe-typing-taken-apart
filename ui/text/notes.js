@@ -18,9 +18,12 @@ export const NOTES = {
     Vocabulary Shorthand Writing System for Pen-based Computers”</a>, UIST 2004, pp. 43–52. Shape judge: equations
     1–2. Place judge: equation 3, with equal weights and without the tunnel of equations 4–6. Bell curves and the
     vote: equations 7–9. Identical shapes: Table 1.`,
-  fn2: `S. Zhai and P.O. Kristensson, “The Word-Gesture Keyboard: Reimagining Keyboard Interaction”,
-    Communications of the ACM 55(9), 2012. Bayes' rule: equations 3–4. The 537 conflicts: section 2.1.`,
-  fn3: `Word list and frequencies: <i>FrequencyWords</i> by Hermit Dave, from OpenSubtitles 2018,
-    CC BY-SA 4.0. Key proportions: B.A. Smith, X. Bi and S. Zhai, “Optimizing Touchscreen Keyboards for Gesture
-    Typing”, CHI 2015.`,
+  fn2: `S. Zhai and P.O. Kristensson, <a href="https://doi.org/10.1145/2330667.2330689">“The Word-Gesture
+    Keyboard: Reimagining Keyboard Interaction”</a>, Communications of the ACM 55(9), 2012. Bayes' rule: equations 3–4. The 537 conflicts: section 2.1.`,
+  fn3: `Word list and frequencies: <a href="https://github.com/hermitdave/FrequencyWords"><i>FrequencyWords</i></a>
+    by Hermit Dave, from OpenSubtitles 2018, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+    Key proportions: B.A. Smith, X. Bi and S. Zhai, <a href="https://doi.org/10.1145/2702123.2702357">“Optimizing
+    Touchscreen Keyboards for Gesture Typing”</a>, CHI 2015.`,
+  source: `<b>Source code:</b> <a href="https://github.com/akira113p">GitHub</a>. Plain JavaScript, no libraries,
+    no build step.`,
 };

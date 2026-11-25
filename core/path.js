@@ -10,8 +10,12 @@ export function distance(a, b) {
  * That is why "to" and "too" share a path.
  */
 export function wordKeys(word, centers) {
-  const letters = [...word].filter((letter, i) => i === 0 || letter !== word[i - 1]);
-  return letters.map((letter) => centers[letter]);
+  return keyLetters(word).map((letter) => centers[letter]);
+}
+
+/** The letters whose keys the finger visits: "hello" → h, e, l, o. */
+export function keyLetters(word) {
+  return [...word].filter((letter, i) => i === 0 || letter !== word[i - 1]);
 }
 
 export function pathLength(points) {

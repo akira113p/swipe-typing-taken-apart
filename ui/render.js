@@ -1,9 +1,10 @@
-// Shows one vote everywhere: keyboard overlay, verdict, bars, funnel, table and charts.
+// Shows one vote everywhere: keyboard overlay, verdict, bars, funnel, table, charts and step figures.
 
 import { readSettings } from "./controls.js";
 import { renderFunnel, renderTable } from "./details.js";
 import { renderFigures } from "./figures.js";
 import { renderRunners, renderVerdict } from "./results.js";
+import { renderSteps } from "./steps.js";
 
 const DASHED_RUNNERS = 3; // the leading words drawn on the keyboard; more would hide the swipe
 
@@ -23,4 +24,5 @@ export function renderResult(state, overlay, onInspect) {
   renderFunnel(funnel, candidates);
   renderTable(candidates, s);
   renderFigures(candidates, s, state.inspected);
+  renderSteps(state, s);
 }

@@ -16,6 +16,7 @@ export function attachPointer(svg, { canStart, onDraw, onEnd }) {
 
   svg.addEventListener("pointerdown", (event) => {
     if (!canStart() || event.button > 0) return;
+    event.preventDefault(); // a mouse drag would otherwise start selecting the page's text
     svg.setPointerCapture(event.pointerId); // keep receiving moves even if the finger leaves the keys
     drawing = true;
     points = [toKeys(event)];

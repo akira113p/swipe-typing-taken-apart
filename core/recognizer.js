@@ -14,8 +14,9 @@ import { normalizeShape } from "./shape.js";
 import { toShares } from "./vote.js";
 
 /**
- * Returns { gesture, funnel, candidates }. gesture is the resampled swipe; funnel lists
- * [stage id, words left]; candidates are sorted by their share of the vote.
+ * Returns { gesture, gestureShape, funnel, candidates }. gesture is the resampled swipe and
+ * gestureShape the same points normalized; funnel lists [stage id, words left];
+ * candidates are sorted by their share of the vote.
  */
 export function recognize(points, templates, prior, options = {}) {
   const s = { ...DEFAULTS, ...options };
@@ -30,7 +31,7 @@ export function recognize(points, templates, prior, options = {}) {
   }
 
   const candidates = alive.map((t) => {
-    const c = { word: t.word, index: t.index, keys: t.keys, path: t.place, prior: prior[t.index], ...judge(t, swipe) };
+    const c = { word: t.word, index: t.index, keys: t.keys, path: t.place, shape: t.shape, prior: prior[t.index], ...judge(t, swipe) };
     c.penalties = penalties(c, s);
     c.points = totalPenalty(c.penalties);
     return c;
@@ -38,7 +39,7 @@ export function recognize(points, templates, prior, options = {}) {
   const shares = toShares(candidates.map((c) => c.points));
   candidates.forEach((c, i) => { c.share = shares[i]; });
   candidates.sort((a, b) => b.share - a.share);
-  return { gesture: place, funnel, candidates };
+  return { gesture: place, gestureShape: swipe.shape, funnel, candidates };
 }
 
 /** The cheap first filter: people aim carefully at the first and the last letter. */

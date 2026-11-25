@@ -10,6 +10,7 @@ import { WORDS_PER_POINT, setUpAccuracy } from "./accuracy.js";
 import { buildControls, readSettings, watchControls } from "./controls.js";
 import { stopDemo, wireDemoButtons } from "./demo.js";
 import { number } from "./format.js";
+import { createNotepad } from "./notepad.js";
 import { buildOverview } from "./overview.js";
 import { attachPointer } from "./pointer.js";
 import { renderResult } from "./render.js";
@@ -19,23 +20,24 @@ const $ = (id) => document.getElementById(id);
 const centers = keyCenters();
 const svg = $("keyboard");
 const overlay = createOverlay(drawKeys(svg, centers));
+const notepad = createNotepad({ screen: $("screen-text"), bar: $("suggestions"), eraseKey: svg.querySelector(".erase"), onPick: (word) => inspect(word) });
 const state = { lexicon: null, templates: null, stroke: [], result: null, inspected: null };
 const drawing = {
   onDraw(points) { state.stroke = points; overlay.drawStroke(points); },
-  onEnd(points) { state.stroke = points; state.inspected = null; vote(); },
+  onEnd(points) { state.stroke = points; state.inspected = null; vote(true); },
 };
 
-function vote() {
+/** newSwipe: the finger just lifted, so a new word is written. Otherwise a setting changed and the same swipe is voted again. */
+function vote(newSwipe = false) {
   if (state.stroke.length === 0 || !state.templates) return;
   state.result = recognize(state.stroke, state.templates, state.lexicon.prior, readSettings());
-  const words = state.result.candidates.map((c) => c.word);
-  if (!words.includes(state.inspected)) state.inspected = words[0] ?? null;
+  const { candidates } = state.result;
+  if (!candidates.some((c) => c.word === state.inspected)) state.inspected = candidates[0]?.word ?? null;
+  notepad.show(candidates, newSwipe);
   render();
 }
-
 const inspect = (word) => { state.inspected = word; render(); };
 const render = () => renderResult(state, overlay, inspect);
-
 // N and the smallest shape change every word's prepared line, so the lines are built again.
 const prepareWords = () => { state.templates = buildTemplates(state.lexicon.words, centers, readSettings()); };
 

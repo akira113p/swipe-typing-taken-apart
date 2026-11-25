@@ -1,0 +1,47 @@
+/* Design tokens. The palette, type scale and component rules of this page are adapted from
+   "Walkachusetts" by The Pudding (https://github.com/the-pudding/walkachusetts, MIT, (c) 2022 The Pudding).
+   Only the styles are reused; their fonts and illustrations are not (see README, "Things we didn't make ourselves"). */
+:root {
+  /* Paper and ink: warm cream page, near-black text, warm greys for everything in between. */
+  --color-bg: #FBF3EB;
+  --color-surface: #F3E7DA;       /* panels sitting on the page, e.g. the keyboard board */
+  --color-fg: #32302f;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-gray-100: #e1dad3;
+  --color-gray-300: #afaaa4;
+  --color-gray-600: #6a6864;
+  --color-gray-900: #32302f;
+  --color-border: var(--color-gray-300);
+  --color-button-bg: var(--color-gray-100);
+  --color-button-hover: var(--color-gray-300);
+  --color-selection: var(--color-gray-300);
+
+  /* Categorical colours (Paul Tol's colour-blind-safe set). Used only for data, never for decoration. */
+  --category-blue: #4477AA;
+  --category-red: #EE6677;
+  --category-green: #228833;
+  --category-yellow: #CCBB44;
+  --category-cyan: #66CCEE;
+  --category-purple: #AA3377;
+  --category-gray: #BBBBBB;
+  /* What each colour means on this page: one colour per judge, the same in the chart, the card and the legend. */
+  --judge-shape: var(--category-green);
+  --judge-place: var(--category-blue);
+  --judge-letters: var(--category-red);
+  --judge-frequency: var(--category-yellow);
+
+  /* Type: a text serif for reading, a grotesque sans for labels and controls. Free fonts, loaded in index.html. */
+  --serif: "Source Serif 4", "Tiempos Text", "Iowan Old Style", Georgia, serif;
+  --sans: "Public Sans", "Atlas Grotesk", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  --mono: Menlo, Consolas, Monaco, monospace;
+  --12px: .75rem; --14px: .875rem; --16px: 1rem; --18px: 1.125rem; --20px: 1.25rem;
+  --24px: 1.5rem; --28px: 1.75rem; --32px: 2rem; --40px: 2.5rem; --48px: 3rem; --64px: 4rem;
+
+  --border-radius: 4px;
+  --page-width: 1180px;
+  --z-top: 100;
+  --z-overlay: 1000;
+  --1s: 1ms;                      /* "one second" of animation; stays 1ms if the visitor asked for less motion */
+}
+@media (prefers-reduced-motion: no-preference) { :root { --1s: 1s; } }
