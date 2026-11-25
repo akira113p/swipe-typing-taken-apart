@@ -1,4 +1,4 @@
-# Your finger never types the word
+# Your finger never taps the word. It slides.
 
 **Swipe typing, taken apart.** When you swipe across a phone keyboard, the phone never works out which letters you crossed. It compares your whole line with the ideal line of every word it knows (10,000 here) and holds a vote. This page lets you swipe, watch the vote, and take the machine apart: switch every part off, move every number, and measure the effect.
 
