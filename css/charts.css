@@ -6,15 +6,6 @@
 .chart-small { font-size: 12px; fill: var(--color-gray-600); }
 .chart-focus { fill: var(--color-fg); font-weight: 700; }
 .chart-off { opacity: .3; }
-.pen-shape { fill: var(--judge-shape); }
-.pen-place { fill: var(--judge-place); }
-.pen-letters { fill: var(--judge-letters); }
-.pen-frequency { fill: var(--judge-frequency); }
-/* The vote's winner: a band behind its row, its total as a dashed line, and an ink tag like the section headings. */
-.winner-band { fill: var(--color-surface); }
-.winner-line { stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 4 3; }
-.winner-tag { fill: var(--color-fg); }
-.winner-tag-text { font-size: 11px; font-weight: 700; letter-spacing: .04em; fill: var(--color-bg); }
 .bell { fill: none; stroke: var(--color-fg); stroke-width: 1.5; }
 .axis { stroke: var(--color-fg); stroke-width: 1; }
 .sigma-line { stroke: var(--color-gray-600); stroke-dasharray: 3 3; }
@@ -26,10 +17,9 @@
 .acc-yours.dot { fill: var(--category-blue); }
 .acc-default.dot { fill: var(--color-gray-600); stroke-dasharray: none; }
 .acc-yours-text { fill: var(--color-fg); font-weight: 700; }
-/* The bell charts: three across, one under the other on a phone so their labels stay readable. */
-.bells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 16px; }
-.bell-panel { width: 100%; height: auto; display: block; }
-@media (max-width: 600px) { .bells { grid-template-columns: minmax(0, 320px); } }
+/* The bell charts: three across where they fit at about their drawn size, else one under the other, so the labels stay readable. */
+.bells { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px 12px; margin-top: 8px; }
+.bell-panel { width: 100%; max-width: 280px; height: auto; display: block; }
 /* Point at a level (or slide a finger along them) to pick it: ui/sloppy.js shows its example swipe. */
 #accuracy-chart { touch-action: pan-y; }
 .acc-band { fill: transparent; cursor: pointer; }
@@ -39,6 +29,9 @@
 .read-right { color: var(--category-green); }
 .read-wrong { color: var(--category-red); }
 .explain .chart.sloppy-example { max-width: 420px; margin: 4px auto 0; background: var(--color-surface); border-radius: var(--border-radius); }
+.sloppy-hint { text-align: center; }
+.sloppy-legend { justify-content: center; margin: 8px 0 0; }
+.ruler { stroke: var(--color-fg); stroke-width: .04; }
 .chart:empty { display: none; } /* the vote charts stay hidden until the first swipe */
 
 .explain { margin: 56px 0 0; }

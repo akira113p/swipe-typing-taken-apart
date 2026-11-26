@@ -4,7 +4,7 @@
 
 import { DEFAULTS } from "../core/settings.js";
 import { SLIDERS, SWITCHES } from "./control-spec.js";
-import { number } from "./format.js";
+import { millimetres, number } from "./format.js";
 
 const all = (selector) => document.querySelectorAll(selector);
 const copies = (key) => all(`[data-key="${key}"]`);
@@ -27,9 +27,12 @@ function resetControls() {
   showSliderValues();
 }
 
+/** A distance also shows its millimetres, the unit of the vote table and the bell charts. */
 function showSliderValues() {
   for (const s of SLIDERS) {
-    const text = `${number(Number(copies(s.key)[0].value), decimals(s.step))} ${s.unit}`;
+    const value = Number(copies(s.key)[0].value);
+    const mm = s.unit === "keys" ? ` (${millimetres(value)})` : "";
+    const text = `${number(value, decimals(s.step))} ${s.unit}${mm}`;
     all(`[data-value="${s.key}"]`).forEach((output) => { output.textContent = text; });
   }
 }

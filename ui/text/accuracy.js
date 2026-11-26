@@ -9,6 +9,7 @@ export const ACCURACY = {
     the finger gets worse: it lands farther from each key and curves more between keys. Point at a level under the
     chart (or slide your finger along them) to see the test word <i>hello</i> swiped by that finger and what the keyboard reads. These controls are the
     same ones as next to the keyboard: change them here or there, run the test, and see whether your change helped.`,
+  sloppyHint: `Point at a finger under the chart (precise, careful, …) or tap one to see <i>hello</i> swiped by it.`,
   accuracyCaption: `Each square is one word; hover it to see the word and how each setting read it. The finger is our
     own model, not recorded data. Some words can never win: they draw the same line as a more common word
     (like <i>tip</i> and <i>top</i>).`,

@@ -1,17 +1,47 @@
-/* The result column: verdict, bars, funnel. (Switches, sliders and tables live in components.css.) */
-.result { border-top: 1px solid var(--color-fg); padding-top: 6px; }
+/* The result column: verdict, vote table, funnel, bell charts. (Switches and sliders live in components.css.) */
+.result { border-top: 1px solid var(--color-fg); padding-top: 6px; min-width: 0; } /* min-width: the table scrolls, the column does not grow */
 .verdict-word { font: 700 clamp(44px, 9vw, 60px)/1 var(--sans); min-height: 1em; }
 .verdict-meta { font: 15px var(--sans); color: var(--color-gray-600); margin: 6px 0 12px; }
-.runners { display: grid; gap: 6px; }
-.runner { display: grid; grid-template-columns: 1.2em 7em 1fr 3.5em; align-items: center; gap: 10px; text-align: left;
-  width: 100%; background: none; border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 6px 10px; cursor: pointer; }
-.runner.selected { background: var(--color-gray-100); border: 2px solid var(--color-fg); padding: 5px 9px; }
-.runner .r { color: var(--color-gray-600); font: 14px var(--sans); font-variant-numeric: tabular-nums; }
-.runner .w { font: italic 19px var(--serif); overflow: hidden; text-overflow: ellipsis; }
-.runner .bar { height: 10px; background: var(--color-gray-100); }
-.runner .bar i { display: block; height: 100%; background: var(--color-fg); }
-.runner .n { font: 14px var(--sans); text-align: right; font-variant-numeric: tabular-nums; }
-.runners .runner:first-child .w { font-weight: 700; }
+.vote-detail:has(tbody:empty) { display: none; } /* nothing to show before the first swipe */
+
+/* The vote table: one row per word; the coloured squares in the header are the colours of the penalty bar. */
+.table-scroll { overflow-x: auto; } /* on a narrow phone the table scrolls, the page does not */
+.vote-table { width: 100%; border-collapse: collapse; font: 14px var(--sans); }
+.vote-table th { font-size: 11px; text-transform: uppercase; text-align: left; vertical-align: bottom;
+  border-bottom: 1px solid var(--color-fg); padding: 4px; white-space: nowrap; }
+.vote-table th small { display: block; font-weight: 400; text-transform: none; color: var(--color-gray-600); }
+.vote-table td { border-bottom: 1px solid var(--color-border); padding: 5px 4px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vote-table tbody tr { cursor: pointer; }
+@media (hover: hover) { .vote-table tbody tr:hover { background: var(--color-gray-100); } }
+.vote-table tbody tr:first-child { background: var(--color-surface); font-weight: 700; } /* the winner */
+.vote-table tr.selected td:first-child { box-shadow: inset 3px 0 var(--color-fg); } /* the word drawn on the keyboard */
+.word-button { font: italic 17px var(--serif); color: inherit; background: none; border: 0; padding: 0 0 0 6px; cursor: pointer; }
+tr:first-child .word-button { font-weight: 700; }
+tr.selected .word-button { text-decoration: underline; text-underline-offset: 3px; }
+.swatch { display: inline-block; width: 9px; height: 9px; margin-right: 4px; }
+.swatch.pen-shape, .pen-bar .pen-shape { background: var(--judge-shape); }
+.swatch.pen-place, .pen-bar .pen-place { background: var(--judge-place); }
+.swatch.pen-letters, .pen-bar .pen-letters { background: var(--judge-letters); }
+.swatch.pen-frequency, .pen-bar .pen-frequency { background: var(--judge-frequency); }
+.pen-cell, .share-cell { display: flex; align-items: center; gap: 6px; }
+.pen-bar { position: relative; display: flex; flex: 1; min-width: 120px; height: 12px; }
+.pen-total { min-width: 2.6em; text-align: right; }
+/* The winner's total, on every row: the part of a bar past it is how far that word fell behind. */
+.winner-mark { position: absolute; top: -5px; bottom: -5px; border-left: 1.5px dashed var(--color-fg); }
+.share-bar { flex: 1; min-width: 40px; height: 10px; background: var(--color-gray-100); }
+.share-bar span { display: block; height: 100%; background: var(--color-fg); }
+.share-value { min-width: 3em; text-align: right; }
+/* A narrow result column (a phone, or a mid-size screen beside the phone): all seven columns still fit. */
+.result { container-type: inline-size; }
+@container (max-width: 560px) {
+  .vote-table { font-size: 11.5px; }
+  .vote-table th, .vote-table td { padding: 4px 1.5px; }
+  .vote-table th { font-size: 9.5px; white-space: normal; }
+  .word-button { font-size: 14px; padding-left: 4px; }
+  .pen-bar { min-width: 40px; }
+  .pen-total { min-width: 0; }
+  .share-bar { display: none; } /* the share is still written; the bar beside it would not fit */
+}
 
 /* The funnel: three boxes, each a count from the recognizer. */
 .funnel { display: flex; gap: 30px; margin: 14px 0 0; }

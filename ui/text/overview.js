@@ -13,14 +13,13 @@ export const OVERVIEW = {
   shapeShort: `Resizes your swipe and the word's line to the same size and lays one on top of the other. Score:
     the average distance between matching points. Where on the keyboard you drew does not matter.`,
   placeShort: `Compares your swipe with the word's line where both really are on the keyboard, nothing resized.
-    Score: the average distance between matching points, in key widths.`,
+    Score: the average distance between matching points, in millimetres.`,
   lettersShort: `<span class="ours">our addition</span> For each letter of the word, finds the closest point of
     your swipe, keeping the letters in order. Score: how far, on average, your swipe passes from each letter.`,
-  bellShort: `How each judge turns a gap into a score. <b>Across:</b> the gap between your swipe and the word
+  bellShort: `How each judge turns a gap from the table into a score. <b>Across:</b> the gap, in the table's units
     (0 = perfect, further right = worse). <b>Up:</b> the score the judge gives (top = 100%). The dashed line is σ, the
     judge's usual error, where the score is 61%: a dot left of it does better than usual, a dot right of it does
-    worse. The dots are the leading words.`,
-  voteShort: `Each bar is one word. Each colour is the penalty points from one judge: the bigger its gap, the more
-    points (gold: the extra points rare words pay). The shortest bar, the fewest points in total, wins. The dashed
-    line is the winner's total: the part of a bar past it is how far that word fell behind.`,
+    worse. A lower score costs more penalty points.`,
+  voteShort: `Then the vote, shown next to the phone: each judge turns its gap into penalty points, rare words pay a
+    few more, and the word with the fewest points in total wins.`,
 };

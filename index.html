@@ -32,25 +32,35 @@
         <svg id="keyboard" role="img" aria-label="A keyboard you can swipe on"></svg>
       </div>
       <div class="apart"><h3 class="small-h">Take it apart</h3><div data-controls="switches"></div></div></div>
-    <section class="result" aria-live="polite">
-      <div id="verdict-word" class="verdict-word">…</div><p id="verdict-meta" class="verdict-meta"></p>
-      <div id="runners" class="runners"></div><div id="funnel" class="funnel"></div>
+    <section class="result">
+      <div aria-live="polite"><div id="verdict-word" class="verdict-word">…</div><p id="verdict-meta" class="verdict-meta"></p></div>
+      <div class="vote-detail">
+        <div class="table-scroll"><table class="vote-table"><thead><tr><th>Word</th>
+          <th><i class="swatch pen-shape"></i>Shape<small>differs by</small></th>
+          <th><i class="swatch pen-place"></i>Position<small>off by</small></th>
+          <th><i class="swatch pen-letters"></i>Letters<small>missed by</small></th>
+          <th><i class="swatch pen-frequency"></i>How common<small>in English</small></th>
+          <th>Penalty points<small>fewer wins</small></th><th>Vote<small>share</small></th></tr></thead>
+          <tbody id="vote-rows"></tbody></table></div>
+        <p class="figcap" data-text="tableNote"></p>
+        <div id="funnel" class="funnel"></div>
+        <h3 class="small-h">How each judge scores these words</h3>
+        <div id="bell-chart" class="chart bells"></div><p class="figcap" data-text="bellShort"></p>
+      </div>
       <details class="under"><summary>Tune every number</summary>
         <div data-controls="sliders"></div><button data-reset class="button" type="button">Back to the defaults</button></details>
-      <details class="under"><summary>Under the hood</summary><p class="figcap" data-text="tableNote"></p>
-        <div class="table-scroll"><table><thead><tr><th>Word</th><th>Shape<small>differs by</small></th>
-        <th>Position<small>off by</small></th><th>Letters<small>missed by</small></th><th>How common<small>in English</small></th>
-        <th>Penalty<small>fewer wins</small></th><th>Vote<small>share</small></th></tr></thead>
-        <tbody id="detail-rows"></tbody></table></div></details>
     </section>
   </div>
   <section class="explain"><h2 class="sub">How it decides</h2>
     <div id="overview"></div>
-    <h3>6. Your settings against the defaults</h3><p data-text="accuracyShort"></p>
+    <h3>5. Your settings against the defaults</h3><p data-text="accuracyShort"></p>
     <div class="test"><div class="test-controls"><div data-controls="switches"></div><div data-controls="sliders"></div>
       <button data-reset class="button" type="button">Back to the defaults</button></div>
       <div><button id="run-accuracy" class="button" type="button">Run the test</button> <span id="accuracy-status" class="figcap"></span>
-        <svg id="accuracy-chart" class="chart"></svg><p id="sloppy-word" class="sloppy-word"></p><svg id="sloppy-example" class="chart sloppy-example"></svg><div id="word-wall" class="word-wall"></div>
+        <svg id="accuracy-chart" class="chart"></svg><p class="figcap sloppy-hint" id="sloppy-hint" data-text="sloppyHint"></p>
+        <div id="sloppy" hidden><p id="sloppy-word" class="sloppy-word"></p><svg id="sloppy-example" class="chart sloppy-example"></svg>
+          <p id="sloppy-legend" class="legend sloppy-legend"></p></div>
+        <div id="word-wall" class="word-wall"></div>
         <p class="figcap" data-text="accuracyCaption"></p><p class="try" data-text="accuracyTry"></p></div></div>
   </section>
 </main>

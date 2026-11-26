@@ -4,7 +4,7 @@ import { keyCenters, keysNear } from "../core/keyboard.js";
 import { keyLetters } from "../core/path.js";
 import { drawLetters, drawPlace, drawShape } from "../viz/judge-figures.js";
 import { drawDictionary, drawPoints, drawPrune } from "../viz/step-figures.js";
-import { number } from "./format.js";
+import { millimetres, number, percent } from "./format.js";
 
 const centers = keyCenters();
 const WORD_FIGURES = ["step-dictionary", "step-shape", "step-place", "step-letters"];
@@ -24,11 +24,12 @@ export function renderSteps({ stroke, result, inspected }, s) {
     return;
   }
   drawDictionary($("step-dictionary"), centers, word, `${word.word}: ${keyLetters(word.word).join(" → ")}`);
+  // The same units as the vote table: the shape as a share of the drawing's size, distances in mm on a phone.
   drawShape($("step-shape"), gestureShape, word.shape,
-    ["your swipe", word.word, `on top: gap ${number(word.shapeGap, 2)}`]);
-  drawPlace($("step-place"), centers, gesture, word, `${word.word}: average gap ${number(word.placeGap, 2)} keys`);
+    ["your swipe", word.word, `on top: differs by ${percent(word.shapeGap / s.shapeSize)}`]);
+  drawPlace($("step-place"), centers, gesture, word, `${word.word}: off by ${millimetres(word.placeGap)} on average`);
   drawLetters($("step-letters"), centers, gesture, word, s.sigmaLettersKeys,
-    `${word.word}: average miss ${number(word.letterGap, 2)} keys`);
+    `${word.word}: letters missed by ${millimetres(word.letterGap)} on average`);
   // A judge that is switched off is still measured, but its figure fades like its bell curve.
   $("step-shape").classList.toggle("chart-off", !s.useShape);
   $("step-place").classList.toggle("chart-off", !s.usePlace);

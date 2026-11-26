@@ -1,5 +1,5 @@
-// "How it decides": the flowchart, one card per step, and the two live charts next to the
-// step they show. Only the layout lives here; fillText() fills the data-text slots.
+// "How it decides": the flowchart and one card per step. Only the layout lives here; fillText() fills
+// the data-text slots. The vote itself is shown next to the phone (the table and the bell charts).
 
 import { buildLegend } from "./legend.js";
 
@@ -13,7 +13,6 @@ const JUDGES = [
   { title: "Place judge: the position", text: "placeShort", part: "place", chart: "step-place" },
   { title: "Letters judge: every letter, in order", text: "lettersShort", part: "letters", chart: "step-letters" },
 ];
-const VOTE = { title: "5. The vote", text: "voteShort", chart: "penalty-chart" };
 
 const DIAGRAM_ALT = "Flowchart: your swipe becomes equally spaced points, far-off words are pruned, " +
   "three judges and word frequency score the rest, and the vote ranks the words.";
@@ -26,11 +25,10 @@ export function buildOverview() {
     <div class="cards">${PIPELINE.map(card).join("")}</div>
     <h3>4. Three judges</h3>
     <div class="cards">${JUDGES.map(card).join("")}</div>
-    <p data-text="bellShort"></p><div id="bell-chart" class="chart bells"></div>
-    <div class="cards">${card(VOTE)}</div>`;
+    <p data-text="voteShort"></p>`;
 }
 
-/** part colours a judge's card like its bar in the penalty chart. The figure comes first, so figures side by side line up. */
+/** part colours a judge's card like its column in the vote table. The figure comes first, so figures side by side line up. */
 function card({ title, text, part, chart }) {
   const svg = chart ? `<svg id="${chart}" class="chart"></svg>` : "";
   return `<article class="card${part ? ` judge-${part}` : ""}"><h4>${title}</h4>${svg}<p data-text="${text}"></p></article>`;

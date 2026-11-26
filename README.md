@@ -4,11 +4,14 @@
 
 Built for the Global Virtual Hackathon 2026. Plain JavaScript in ES modules, HTML and CSS. No framework, no library, no build step, no server code, no API key.
 
+- Live: https://swipe-typing-taken-apart.vercel.app
+- Code: https://github.com/akira113p/swipe-typing-taken-apart
+
 ## What it looks like
 
-Swipe on the phone (or press an example). The winner is typed, the vote is shown on the right, and the funnel counts how many of the 10,000 words survive each step.
+Swipe on the phone (or press an example). The winner is typed and the vote is shown on the right, in one table. Each row is a word: how far each judge finds it from your swipe (in % and in mm on a phone), how common it is, the penalty points each judge charged (one colour per judge, the fewest points win) and its share of the vote. Under it, the funnel counts how many of the 10,000 words survive each step, and the bell curves show how each judge turns a gap into a score.
 
-![The phone after swiping hello: the swipe on the keys, the vote and the funnel](screenshots/1-swipe.png)
+![The phone after swiping hello: the swipe on the keys and the vote table](screenshots/1-swipe.png)
 
 *How it decides* starts with the whole pipeline. The dark tags name the switches and sliders that change each step.
 
@@ -18,11 +21,11 @@ Each judge is drawn on your own swipe, recomputed on every swipe and every slide
 
 ![The shape, place and letters judges drawn on a hello swipe](screenshots/3-judges.png)
 
-The vote: each colour is one judge's penalty points. The shortest bar wins; the dashed line is the winner's total.
+The vote table up close. The dashed line in the penalty column is the winner's total: the part of a bar past it is how far that word fell behind.
 
-![Penalty points per judge for hello, help, hero, go and grip](screenshots/4-vote.png)
+![The vote table and the bell curves for hello, help, hero, go and grip](screenshots/4-vote.png)
 
-*Your settings against the defaults*: a simulated finger swipes 100 random words at five levels of sloppiness, read with your settings and with the defaults. Each square is one word.
+*Your settings against the defaults*: a simulated finger swipes 100 random words at five levels of sloppiness, read with your settings and with the defaults. Each square is one word. Point at a level to see *hello* swiped by that finger.
 
 ![Accuracy chart and the word wall](screenshots/5-accuracy.png)
 
@@ -35,10 +38,12 @@ python serve.py        # then open http://localhost:8000
 node --test            # 24 tests, Node 24, no dependencies
 ```
 
-`serve.py` is `python -m http.server` plus a header that stops the browser reusing old files, so edits show up on reload. Any static server works, including GitHub Pages.
+You need Python 3 (no packages) to serve the page and Node 24 only for the tests. Open the page through the server, not by double-clicking `index.html`: browsers refuse to load ES modules from `file://`.
+
+`serve.py` is `python -m http.server` plus a header that stops the browser reusing old files, so edits show up on reload. Any static server works (`python -m http.server` too), including GitHub Pages.
 
 1. **Swipe a word** on the keyboard inside the phone, or press one of the example buttons (*hello*, *keyboard*, *thanks*, *tip*, *you*). No microphone or camera is needed.
-2. **Read the vote.** The winner, the runners-up and how many of the 10,000 words survived each step appear next to the phone.
+2. **Read the vote.** The winner, the leading words with every judge's gap and penalty points, and how many of the 10,000 words survived each step appear next to the phone. Click a word to draw it on the keyboard.
 3. **Take it apart.** Switch any judge off, or open *Tune every number* and move a slider. The vote redraws at once.
 4. **Measure it.** *Run the test* scores your settings against the defaults on simulated swipes of random dictionary words.
 
@@ -73,7 +78,7 @@ Every line, number, chart and vote is computed in the browser by our code from t
 
 ## What we changed from SHARK²
 
-- **Added the letters judge.** Point-to-point matching breaks when a real finger curves: a curved *hello* came out as *help*. Measured on simulated swipes of random dictionary words, a careful finger went from 80% to 91% first-place, a sloppy one from 41% to 61%.
+- **Added the letters judge.** Point-to-point matching breaks when a real finger curves: a curved *hello* came out as *help*. Measured on simulated swipes of random dictionary words, a careful finger went from 79% to 90% first-place, a sloppy one from 42% to 60% (the `careful` and `sloppy` fingers of `core/finger.js`, 3 × 1,000 swipes, measured on 26 November).
 - **Left out** the tunnel, the 2σ cut-off and the speed rule; prune on the real keys; word frequency only (no word pairs).
 
 ## Where this falls short

@@ -1,8 +1,10 @@
 // The footer: honesty notes, what we changed from the paper, and the footnotes.
 
 export const NOTES = {
-  tableNote: `How far each leading word is from your swipe: smaller is better. Millimetres are measured on a phone
-    keyboard, where a key is about {keyMm} mm wide.`,
+  tableNote: `How far each leading word is from your swipe, as each judge measures it (smaller is better), and how
+    common it is. Every gap costs penalty points, one colour per column; the fewest points win the biggest share of
+    the vote. The dashed line is the winner's total. Click a word to see it on the keyboard. Millimetres are measured
+    on a phone keyboard, where a key is about {keyMm} mm wide.`,
   honest: `<b>What is computed and what is drawn by hand.</b> Every line, dot, number, chart and vote on this
     page is computed in your browser by our own code, from your swipe and the settings above. The keyboard
     drawing and the colours are decoration. The example buttons slide along the word's keys with rounded corners;
@@ -26,6 +28,6 @@ export const NOTES = {
     by Hermit Dave, from OpenSubtitles 2018, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
     Key proportions: B.A. Smith, X. Bi and S. Zhai, <a href="https://doi.org/10.1145/2702123.2702357">“Optimizing
     Touchscreen Keyboards for Gesture Typing”</a>, CHI 2015.`,
-  source: `<b>Source code:</b> <a href="https://github.com/akira113p">GitHub</a>. Plain JavaScript, no libraries,
+  source: `<b>Source code:</b> <a href="https://github.com/akira113p/swipe-typing-taken-apart">GitHub</a>. Plain JavaScript, no libraries,
     no build step.`,
 };
